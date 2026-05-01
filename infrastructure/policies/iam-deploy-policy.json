@@ -1,0 +1,51 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "CloudFormationAccess",
+        "Effect": "Allow",
+        "Action": [
+          "cloudformation:CreateStack",
+          "cloudformation:UpdateStack",
+          "cloudformation:DeleteStack",
+          "cloudformation:DescribeStacks",
+          "cloudformation:DescribeStackEvents",
+          "cloudformation:GetTemplate",
+          "cloudformation:ValidateTemplate"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Sid": "S3BucketAccess",
+        "Effect": "Allow",
+        "Action": [
+          "s3:CreateBucket",
+          "s3:DeleteBucket",
+          "s3:ListBucket",
+          "s3:GetBucketLocation",
+          "s3:PutBucketWebsite",
+          "s3:GetBucketWebsite",
+          "s3:PutBucketPolicy",
+          "s3:GetBucketPolicy",
+          "s3:DeleteBucketPolicy"
+        ],
+        "Resource": [
+          "arn:aws:s3:::aws-portfolio-staging-*",
+          "arn:aws:s3:::aws-portfolio-prod-*"
+        ]
+      },
+      {
+        "Sid": "S3ObjectAccess",
+        "Effect": "Allow",
+        "Action": [
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:DeleteObject"
+        ],
+        "Resource": [
+          "arn:aws:s3:::aws-portfolio-staging-*/*",
+          "arn:aws:s3:::aws-portfolio-prod-*/*"
+        ]
+      }
+    ]
+  }
