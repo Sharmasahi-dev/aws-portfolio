@@ -1,0 +1,314 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #000;
+    color: #fff;
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Navbar */
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background: rgba(0, 0, 0, 0.92);
+    border-bottom: 1px solid #222;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #999;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* Hero */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(to bottom, #000, #111);
+}
+
+.hero-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.hero-image img {
+    width: 350px;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #222;
+    box-shadow: 0 0 40px rgba(255,255,255,0.08);
+}
+
+.hero-content {
+    flex: 1;
+}
+
+.subtitle {
+    color: #888;
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-size: 70px;
+    line-height: 1.2;
+    margin-bottom: 30px;
+}
+
+.hero h1 span {
+    display: block;
+    color: #888;
+}
+
+.hero-description {
+    color: #ccc;
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 15px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.primary-btn {
+    background: white;
+    color: black;
+}
+
+.secondary-btn {
+    border: 1px solid #555;
+    color: white;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+/* Sections */
+
+.section {
+    padding: 120px 0;
+}
+
+.dark-section {
+    background: #0b0b0b;
+}
+
+.section-title p {
+    color: #888;
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+}
+
+.section-title h2 {
+    font-size: 50px;
+    margin-bottom: 50px;
+}
+
+.about-content p {
+    color: #ccc;
+    margin-bottom: 25px;
+    font-size: 18px;
+}
+
+/* Cards */
+
+.cards {
+    display: grid;
+    gap: 30px;
+}
+
+.card {
+    border: 1px solid #222;
+    border-radius: 20px;
+    padding: 40px;
+    background: black;
+    transition: 0.3s;
+}
+
+.card:hover {
+    border-color: #555;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.card h3 {
+    font-size: 28px;
+}
+
+.card span,
+.card small {
+    color: #888;
+}
+
+.card ul {
+    padding-left: 20px;
+}
+
+.card li {
+    margin-bottom: 15px;
+    color: #ccc;
+}
+
+/* Skills */
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.skill-box {
+    border: 1px solid #222;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.skill-box:hover {
+    background: #111;
+}
+
+/* Certifications */
+
+.cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.cert-card {
+    border: 1px solid #222;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.cert-card:hover {
+    border-color: #555;
+}
+
+/* Footer */
+
+footer {
+    border-top: 1px solid #222;
+    text-align: center;
+    padding: 40px 20px;
+    color: #777;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+
+    .hero-wrapper {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-image img {
+        width: 220px;
+        height: 220px;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .hero h1 {
+        font-size: 42px;
+    }
+
+    .section-title h2 {
+        font-size: 36px;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 80px;
+        right: 0;
+        background: #000;
+        width: 220px;
+        flex-direction: column;
+        padding: 30px;
+        display: none;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}

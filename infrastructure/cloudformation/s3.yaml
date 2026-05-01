@@ -1,0 +1,93 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: Portfolio S3 Static Website Hosting
+
+Parameters:
+
+  ProjectName:
+    Type: String
+    Default: aws-portfolio
+
+Resources:
+
+  # =========================
+  # STAGING BUCKET
+  # =========================
+
+  StagingBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "${ProjectName}-staging-${AWS::AccountId}"
+
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  StagingBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref StagingBucket
+
+      PolicyDocument:
+        Version: '2012-10-17'
+
+        Statement:
+
+          - Sid: PublicReadGetObject
+
+            Effect: Allow
+
+            Principal: "*"
+
+            Action:
+              - s3:GetObject
+
+            Resource:
+              - !Sub "${StagingBucket.Arn}/*"
+
+  # =========================
+  # PRODUCTION BUCKET
+  # =========================
+
+  ProductionBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "${ProjectName}-prod-${AWS::AccountId}"
+
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  ProductionBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref ProductionBucket
+
+      PolicyDocument:
+        Version: '2012-10-17'
+
+        Statement:
+
+          - Sid: PublicReadGetObject
+
+            Effect: Allow
+
+            Principal: "*"
+
+            Action:
+              - s3:GetObject
+
+            Resource:
+              - !Sub "${ProductionBucket.Arn}/*"
+
+Outputs:
+
+  StagingBucketName:
+    Value: !Ref StagingBucket
+
+  ProductionBucketName:
+    Value: !Ref ProductionBucket
+
+  StagingWebsiteURL:
+    Value: !GetAtt StagingBucket.WebsiteURL
+
+  ProductionWebsiteURL:
+    Value: !GetAtt ProductionBucket.WebsiteURL
