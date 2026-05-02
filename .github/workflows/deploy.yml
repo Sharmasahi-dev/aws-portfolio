@@ -77,8 +77,18 @@ jobs:
 
           echo "STAGING_DISTRIBUTION_ID=$(aws cloudformation describe-stacks \
           --stack-name aws-portfolio-cloudfront \
-          --query \"Stacks[0].Outputs[?OutputKey=='StagingDistributionid'].OutputValue\" \
+          --query \"Stacks[0].Outputs[?OutputKey=='StagingDistributionId'].OutputValue\" \
           --output text)" >> $GITHUB_ENV
+
+      # ==========================================
+      # WAIT FOR STAGING DISTRIBUTION
+      # ==========================================
+
+      - name: Wait For STAGING Distribution Deployment
+        run: |
+
+          aws cloudfront wait distribution-deployed \
+          --id ${STAGING_DISTRIBUTION_ID}
 
       # ==========================================
       # INVALIDATE STAGING CLOUDFRONT CACHE
@@ -154,8 +164,18 @@ jobs:
 
           echo "PRODUCTION_DISTRIBUTION_ID=$(aws cloudformation describe-stacks \
           --stack-name aws-portfolio-cloudfront \
-          --query \"Stacks[0].Outputs[?OutputKey=='ProductionDistributionid'].OutputValue\" \
+          --query \"Stacks[0].Outputs[?OutputKey=='ProductionDistributionId'].OutputValue\" \
           --output text)" >> $GITHUB_ENV
+
+      # ==========================================
+      # WAIT FOR PROD DISTRIBUTION
+      # ==========================================
+
+      - name: Wait For PROD Distribution Deployment
+        run: |
+
+          aws cloudfront wait distribution-deployed \
+          --id ${PRODUCTION_DISTRIBUTION_ID}
 
       # ==========================================
       # INVALIDATE PRODUCTION CLOUDFRONT CACHE
