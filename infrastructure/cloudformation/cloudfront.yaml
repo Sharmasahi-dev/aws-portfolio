@@ -1,0 +1,60 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: CloudFront Distribution For Portfolio Website
+
+Parameters:
+
+  ProjectName:
+    Type: String
+    Default: aws-portfolio
+
+Resources:
+
+  PortfolioCloudFront:
+    Type: AWS::CloudFront::Distribution
+
+    Properties:
+
+      DistributionConfig:
+
+        Enabled: true
+
+        DefaultRootObject: index.html
+
+        Origins:
+
+          - Id: PortfolioS3Origin
+
+            DomainName: !Sub "${ProjectName}-prod-${AWS::AccountId}.s3-website-${AWS::Region}.amazonaws.com"
+
+            CustomOriginConfig:
+              HTTPPort: 80
+              HTTPSPort: 443
+              OriginProtocolPolicy: http-only
+
+        DefaultCacheBehavior:
+
+          TargetOriginId: PortfolioS3Origin
+
+          ViewerProtocolPolicy: redirect-to-https
+
+          AllowedMethods:
+            - GET
+            - HEAD
+
+          CachedMethods:
+            - GET
+            - HEAD
+
+          ForwardedValues:
+            QueryString: false
+
+        PriceClass: PriceClass_100
+
+Outputs:
+
+  CloudFrontDistributionId:
+    Value: !Ref PortfolioCloudFront
+
+  CloudFrontDomainName:
+    Value: !GetAtt PortfolioCloudFront.DomainName
