@@ -106,7 +106,7 @@ Resources:
 
 Outputs:
 
-  StagingDistributionId:
+  StagingDistributionid:
     Description: Staging CloudFront Distribution ID
     Value: !Ref StagingDistribution
 
@@ -114,7 +114,7 @@ Outputs:
     Description: Staging CloudFront Domain
     Value: !GetAtt StagingDistribution.DomainName
 
-  ProductionDistributionId:
+  ProductionDistributionid:
     Description: Production CloudFront Distribution ID
     Value: !Ref ProductionDistribution
 

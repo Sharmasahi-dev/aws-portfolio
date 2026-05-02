@@ -77,7 +77,7 @@ jobs:
 
           echo "STAGING_DISTRIBUTION_ID=$(aws cloudformation describe-stacks \
           --stack-name aws-portfolio-cloudfront \
-          --query \"Stacks[0].Outputs[?OutputKey=='StagingDistributionId'].OutputValue\" \
+          --query \"Stacks[0].Outputs[?OutputKey=='StagingDistributionid'].OutputValue\" \
           --output text)" >> $GITHUB_ENV
 
       # ==========================================
@@ -154,7 +154,7 @@ jobs:
 
           echo "PRODUCTION_DISTRIBUTION_ID=$(aws cloudformation describe-stacks \
           --stack-name aws-portfolio-cloudfront \
-          --query \"Stacks[0].Outputs[?OutputKey=='ProductionDistributionId'].OutputValue\" \
+          --query \"Stacks[0].Outputs[?OutputKey=='ProductionDistributionid'].OutputValue\" \
           --output text)" >> $GITHUB_ENV
 
       # ==========================================
