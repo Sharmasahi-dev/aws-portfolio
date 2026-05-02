@@ -11,6 +11,27 @@ Parameters:
 Resources:
 
   # =========================================================
+  # ORIGIN ACCESS CONTROL (OAC)
+  # =========================================================
+
+  PortfolioOAC:
+    Type: AWS::CloudFront::OriginAccessControl
+
+    Properties:
+
+      OriginAccessControlConfig:
+
+        Name: PortfolioOAC
+
+        Description: OAC For Private S3 Access
+
+        OriginAccessControlOriginType: s3
+
+        SigningBehavior: always
+
+        SigningProtocol: sigv4
+
+  # =========================================================
   # STAGING CLOUDFRONT DISTRIBUTION
   # =========================================================
 
@@ -31,12 +52,11 @@ Resources:
 
           - Id: StagingS3Origin
 
-            DomainName: !Sub "${ProjectName}-staging-${AWS::AccountId}.s3-website.${AWS::Region}.amazonaws.com"
+            DomainName: !Sub "${ProjectName}-staging-${AWS::AccountId}.s3.${AWS::Region}.amazonaws.com"
 
-            CustomOriginConfig:
-              HTTPPort: 80
-              HTTPSPort: 443
-              OriginProtocolPolicy: http-only
+            S3OriginConfig: {}
+
+            OriginAccessControlId: !GetAtt PortfolioOAC.Id
 
         DefaultCacheBehavior:
 
@@ -51,6 +71,8 @@ Resources:
           CachedMethods:
             - GET
             - HEAD
+
+          Compress: true
 
           ForwardedValues:
             QueryString: false
@@ -78,12 +100,11 @@ Resources:
 
           - Id: ProductionS3Origin
 
-            DomainName: !Sub "${ProjectName}-prod-${AWS::AccountId}.s3-website.${AWS::Region}.amazonaws.com"
+            DomainName: !Sub "${ProjectName}-prod-${AWS::AccountId}.s3.${AWS::Region}.amazonaws.com"
 
-            CustomOriginConfig:
-              HTTPPort: 80
-              HTTPSPort: 443
-              OriginProtocolPolicy: http-only
+            S3OriginConfig: {}
+
+            OriginAccessControlId: !GetAtt PortfolioOAC.Id
 
         DefaultCacheBehavior:
 
@@ -98,6 +119,8 @@ Resources:
           CachedMethods:
             - GET
             - HEAD
+
+          Compress: true
 
           ForwardedValues:
             QueryString: false
@@ -121,3 +144,7 @@ Outputs:
   ProductionDistributionDomain:
     Description: Production CloudFront Domain
     Value: !GetAtt ProductionDistribution.DomainName
+
+  OriginAccessControlId:
+    Description: CloudFront Origin Access Control ID
+    Value: !GetAtt PortfolioOAC.Id

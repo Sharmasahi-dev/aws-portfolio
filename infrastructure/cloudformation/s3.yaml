@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 
-Description: Portfolio S3 Static Website Hosting
+Description: Portfolio S3 Buckets For Private CloudFront Access
 
 Parameters:
 
@@ -10,41 +10,60 @@ Parameters:
 
 Resources:
 
-  # =========================
+  # =========================================================
   # STAGING BUCKET
-  # =========================
+  # =========================================================
 
   StagingBucket:
     Type: AWS::S3::Bucket
+
     Properties:
 
       BucketName: !Sub "${ProjectName}-staging-${AWS::AccountId}"
 
-      WebsiteConfiguration:
-        IndexDocument: index.html
+      VersioningConfiguration:
+        Status: Enabled
+
+      BucketEncryption:
+
+        ServerSideEncryptionConfiguration:
+
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
 
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: false
-        BlockPublicPolicy: false
-        IgnorePublicAcls: false
-        RestrictPublicBuckets: false
+
+        BlockPublicAcls: true
+
+        IgnorePublicAcls: true
+
+        BlockPublicPolicy: true
+
+        RestrictPublicBuckets: true
+
+  # =========================================================
+  # STAGING BUCKET POLICY
+  # =========================================================
 
   StagingBucketPolicy:
     Type: AWS::S3::BucketPolicy
 
     Properties:
+
       Bucket: !Ref StagingBucket
 
       PolicyDocument:
+
         Version: '2012-10-17'
 
         Statement:
 
-          - Sid: PublicReadGetObject
+          - Sid: AllowCloudFrontAccess
 
             Effect: Allow
 
-            Principal: "*"
+            Principal:
+              Service: cloudfront.amazonaws.com
 
             Action:
               - s3:GetObject
@@ -52,41 +71,66 @@ Resources:
             Resource:
               - !Sub "${StagingBucket.Arn}/*"
 
-  # =========================
+            Condition:
+
+              StringEquals:
+
+                AWS:SourceArn: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${StagingDistributionId}"
+
+  # =========================================================
   # PRODUCTION BUCKET
-  # =========================
+  # =========================================================
 
   ProductionBucket:
     Type: AWS::S3::Bucket
+
     Properties:
 
       BucketName: !Sub "${ProjectName}-prod-${AWS::AccountId}"
 
-      WebsiteConfiguration:
-        IndexDocument: index.html
+      VersioningConfiguration:
+        Status: Enabled
+
+      BucketEncryption:
+
+        ServerSideEncryptionConfiguration:
+
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
 
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: false
-        BlockPublicPolicy: false
-        IgnorePublicAcls: false
-        RestrictPublicBuckets: false
+
+        BlockPublicAcls: true
+
+        IgnorePublicAcls: true
+
+        BlockPublicPolicy: true
+
+        RestrictPublicBuckets: true
+
+  # =========================================================
+  # PRODUCTION BUCKET POLICY
+  # =========================================================
 
   ProductionBucketPolicy:
     Type: AWS::S3::BucketPolicy
 
     Properties:
+
       Bucket: !Ref ProductionBucket
 
       PolicyDocument:
+
         Version: '2012-10-17'
 
         Statement:
 
-          - Sid: PublicReadGetObject
+          - Sid: AllowCloudFrontAccess
 
             Effect: Allow
 
-            Principal: "*"
+            Principal:
+              Service: cloudfront.amazonaws.com
 
             Action:
               - s3:GetObject
@@ -94,16 +138,18 @@ Resources:
             Resource:
               - !Sub "${ProductionBucket.Arn}/*"
 
+            Condition:
+
+              StringEquals:
+
+                AWS:SourceArn: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${ProductionDistributionId}"
+
 Outputs:
 
   StagingBucketName:
+    Description: Staging S3 Bucket Name
     Value: !Ref StagingBucket
 
   ProductionBucketName:
+    Description: Production S3 Bucket Name
     Value: !Ref ProductionBucket
-
-  StagingWebsiteURL:
-    Value: !GetAtt StagingBucket.WebsiteURL
-
-  ProductionWebsiteURL:
-    Value: !GetAtt ProductionBucket.WebsiteURL
