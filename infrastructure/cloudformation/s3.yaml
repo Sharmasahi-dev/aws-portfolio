@@ -17,13 +17,21 @@ Resources:
   StagingBucket:
     Type: AWS::S3::Bucket
     Properties:
+
       BucketName: !Sub "${ProjectName}-staging-${AWS::AccountId}"
 
       WebsiteConfiguration:
         IndexDocument: index.html
 
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+
   StagingBucketPolicy:
     Type: AWS::S3::BucketPolicy
+
     Properties:
       Bucket: !Ref StagingBucket
 
@@ -51,13 +59,21 @@ Resources:
   ProductionBucket:
     Type: AWS::S3::Bucket
     Properties:
+
       BucketName: !Sub "${ProjectName}-prod-${AWS::AccountId}"
 
       WebsiteConfiguration:
         IndexDocument: index.html
 
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+
   ProductionBucketPolicy:
     Type: AWS::S3::BucketPolicy
+
     Properties:
       Bucket: !Ref ProductionBucket
 
