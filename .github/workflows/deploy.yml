@@ -1,4 +1,4 @@
-name: Deploy Portfolio Website
+name: Deploy Portfolio Infrastructure And Website
 
 on:
 
@@ -8,9 +8,9 @@ on:
 
 jobs:
 
-  # =========================
+  # =====================================================
   # STAGING DEPLOYMENT
-  # =========================
+  # =====================================================
 
   deploy-staging:
 
@@ -29,18 +29,60 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+      # ==========================================
+      # DEPLOY CLOUDFORMATION INFRASTRUCTURE
+      # ==========================================
+
+      - name: Deploy CloudFront Infrastructure
+        run: |
+
+          aws cloudformation deploy \
+          --template-file infrastructure/cloudformation/cloudfront.yaml \
+          --stack-name aws-portfolio-cloudfront
+
+      # ==========================================
+      # GET AWS ACCOUNT ID
+      # ==========================================
+
       - name: Get AWS Account ID
         run: |
           echo "ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)" >> $GITHUB_ENV
 
-      - name: Deploy Website To STAGING
+      # ==========================================
+      # DEPLOY WEBSITE TO STAGING
+      # ==========================================
+
+      - name: Deploy Website To STAGING S3
         run: |
 
           aws s3 sync website/ s3://aws-portfolio-staging-${ACCOUNT_ID} --delete
 
-  # =========================
+      # ==========================================
+      # GET STAGING DISTRIBUTION ID
+      # ==========================================
+
+      - name: Get Staging Distribution ID
+        run: |
+
+          echo "STAGING_DISTRIBUTION_ID=$(aws cloudformation describe-stacks \
+          --stack-name aws-portfolio-cloudfront \
+          --query \"Stacks[0].Outputs[?OutputKey=='StagingDistributionId'].OutputValue\" \
+          --output text)" >> $GITHUB_ENV
+
+      # ==========================================
+      # INVALIDATE STAGING CACHE
+      # ==========================================
+
+      - name: Invalidate STAGING CloudFront Cache
+        run: |
+
+          aws cloudfront create-invalidation \
+          --distribution-id ${STAGING_DISTRIBUTION_ID} \
+          --paths "/*"
+
+  # =====================================================
   # PRODUCTION DEPLOYMENT
-  # =========================
+  # =====================================================
 
   deploy-production:
 
@@ -64,11 +106,42 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+      # ==========================================
+      # GET AWS ACCOUNT ID
+      # ==========================================
+
       - name: Get AWS Account ID
         run: |
           echo "ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)" >> $GITHUB_ENV
 
-      - name: Deploy Website To PRODUCTION
+      # ==========================================
+      # DEPLOY WEBSITE TO PROD
+      # ==========================================
+
+      - name: Deploy Website To PROD S3
         run: |
 
           aws s3 sync website/ s3://aws-portfolio-prod-${ACCOUNT_ID} --delete
+
+      # ==========================================
+      # GET PROD DISTRIBUTION ID
+      # ==========================================
+
+      - name: Get Production Distribution ID
+        run: |
+
+          echo "PRODUCTION_DISTRIBUTION_ID=$(aws cloudformation describe-stacks \
+          --stack-name aws-portfolio-cloudfront \
+          --query \"Stacks[0].Outputs[?OutputKey=='ProductionDistributionId'].OutputValue\" \
+          --output text)" >> $GITHUB_ENV
+
+      # ==========================================
+      # INVALIDATE PROD CACHE
+      # ==========================================
+
+      - name: Invalidate PROD CloudFront Cache
+        run: |
+
+          aws cloudfront create-invalidation \
+          --distribution-id ${PRODUCTION_DISTRIBUTION_ID} \
+          --paths "/*"

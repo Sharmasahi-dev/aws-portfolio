@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 
-Description: CloudFront Distribution For Portfolio Website
+Description: Multi Environment CloudFront Distribution For Portfolio Website
 
 Parameters:
 
@@ -10,7 +10,11 @@ Parameters:
 
 Resources:
 
-  PortfolioCloudFront:
+  # =========================================================
+  # STAGING CLOUDFRONT DISTRIBUTION
+  # =========================================================
+
+  StagingDistribution:
     Type: AWS::CloudFront::Distribution
 
     Properties:
@@ -19,11 +23,60 @@ Resources:
 
         Enabled: true
 
+        Comment: Staging CloudFront Distribution
+
         DefaultRootObject: index.html
 
         Origins:
 
-          - Id: PortfolioS3Origin
+          - Id: StagingS3Origin
+
+            DomainName: !Sub "${ProjectName}-staging-${AWS::AccountId}.s3-website-${AWS::Region}.amazonaws.com"
+
+            CustomOriginConfig:
+              HTTPPort: 80
+              HTTPSPort: 443
+              OriginProtocolPolicy: http-only
+
+        DefaultCacheBehavior:
+
+          TargetOriginId: StagingS3Origin
+
+          ViewerProtocolPolicy: redirect-to-https
+
+          AllowedMethods:
+            - GET
+            - HEAD
+
+          CachedMethods:
+            - GET
+            - HEAD
+
+          ForwardedValues:
+            QueryString: false
+
+        PriceClass: PriceClass_100
+
+  # =========================================================
+  # PRODUCTION CLOUDFRONT DISTRIBUTION
+  # =========================================================
+
+  ProductionDistribution:
+    Type: AWS::CloudFront::Distribution
+
+    Properties:
+
+      DistributionConfig:
+
+        Enabled: true
+
+        Comment: Production CloudFront Distribution
+
+        DefaultRootObject: index.html
+
+        Origins:
+
+          - Id: ProductionS3Origin
 
             DomainName: !Sub "${ProjectName}-prod-${AWS::AccountId}.s3-website-${AWS::Region}.amazonaws.com"
 
@@ -34,7 +87,7 @@ Resources:
 
         DefaultCacheBehavior:
 
-          TargetOriginId: PortfolioS3Origin
+          TargetOriginId: ProductionS3Origin
 
           ViewerProtocolPolicy: redirect-to-https
 
@@ -53,8 +106,18 @@ Resources:
 
 Outputs:
 
-  CloudFrontDistributionId:
-    Value: !Ref PortfolioCloudFront
+  StagingDistributionId:
+    Description: Staging CloudFront Distribution ID
+    Value: !Ref StagingDistribution
 
-  CloudFrontDomainName:
-    Value: !GetAtt PortfolioCloudFront.DomainName
+  StagingDistributionDomain:
+    Description: Staging CloudFront URL
+    Value: !GetAtt StagingDistribution.DomainName
+
+  ProductionDistributionId:
+    Description: Production CloudFront Distribution ID
+    Value: !Ref ProductionDistribution
+
+  ProductionDistributionDomain:
+    Description: Production CloudFront URL
+    Value: !GetAtt ProductionDistribution.DomainName
