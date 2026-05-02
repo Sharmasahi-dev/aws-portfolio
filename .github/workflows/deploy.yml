@@ -51,13 +51,27 @@ jobs:
           --stack-name aws-portfolio-cloudfront
 
       # ==========================================
+      # WAIT FOR CLOUDFORMATION STACK
+      # ==========================================
+
+      - name: Wait For CloudFormation Stack
+        run: |
+
+          aws cloudformation wait stack-create-complete \
+          --stack-name aws-portfolio-cloudfront || \
+          aws cloudformation wait stack-update-complete \
+          --stack-name aws-portfolio-cloudfront
+
+      # ==========================================
       # GET AWS ACCOUNT ID
       # ==========================================
 
       - name: Get AWS Account ID
         run: |
 
-          echo "ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)" >> $GITHUB_ENV
+          ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+
+          echo "ACCOUNT_ID=$ACCOUNT_ID" >> $GITHUB_ENV
 
       # ==========================================
       # DEPLOY WEBSITE TO STAGING S3
@@ -75,10 +89,12 @@ jobs:
       - name: Get Staging Distribution ID
         run: |
 
-          echo "STAGING_DISTRIBUTION_ID=$(aws cloudformation describe-stacks \
-          --stack-name aws-portfolio-cloudfront \
-          --query \"Stacks[0].Outputs[?OutputKey=='StagingDistributionId'].OutputValue\" \
-          --output text)" >> $GITHUB_ENV
+          STAGING_ID=$(aws cloudformation describe-stacks \
+            --stack-name aws-portfolio-cloudfront \
+            --query "Stacks[0].Outputs[?OutputKey=='StagingDistributionId'].OutputValue" \
+            --output text)
+
+          echo "STAGING_DISTRIBUTION_ID=$STAGING_ID" >> $GITHUB_ENV
 
       # ==========================================
       # WAIT FOR STAGING DISTRIBUTION
@@ -144,7 +160,9 @@ jobs:
       - name: Get AWS Account ID
         run: |
 
-          echo "ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)" >> $GITHUB_ENV
+          ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+
+          echo "ACCOUNT_ID=$ACCOUNT_ID" >> $GITHUB_ENV
 
       # ==========================================
       # DEPLOY WEBSITE TO PROD S3
@@ -162,10 +180,12 @@ jobs:
       - name: Get Production Distribution ID
         run: |
 
-          echo "PRODUCTION_DISTRIBUTION_ID=$(aws cloudformation describe-stacks \
-          --stack-name aws-portfolio-cloudfront \
-          --query \"Stacks[0].Outputs[?OutputKey=='ProductionDistributionId'].OutputValue\" \
-          --output text)" >> $GITHUB_ENV
+          PROD_ID=$(aws cloudformation describe-stacks \
+            --stack-name aws-portfolio-cloudfront \
+            --query "Stacks[0].Outputs[?OutputKey=='ProductionDistributionId'].OutputValue" \
+            --output text)
+
+          echo "PRODUCTION_DISTRIBUTION_ID=$PROD_ID" >> $GITHUB_ENV
 
       # ==========================================
       # WAIT FOR PROD DISTRIBUTION
