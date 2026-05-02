@@ -111,7 +111,7 @@ Outputs:
     Value: !Ref StagingDistribution
 
   StagingDistributionDomain:
-    Description: Staging CloudFront URL
+    Description: Staging CloudFront Domain
     Value: !GetAtt StagingDistribution.DomainName
 
   ProductionDistributionId:
@@ -119,5 +119,5 @@ Outputs:
     Value: !Ref ProductionDistribution
 
   ProductionDistributionDomain:
-    Description: Production CloudFront URL
+    Description: Production CloudFront Domain
     Value: !GetAtt ProductionDistribution.DomainName
