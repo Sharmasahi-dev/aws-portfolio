@@ -9,17 +9,27 @@ on:
 jobs:
 
   # =====================================================
-  # STAGING DEPLOYMENT
+  # JOB 1 — STAGING
   # =====================================================
 
   deploy-staging:
+
+    name: Deploy To Staging
 
     runs-on: ubuntu-latest
 
     steps:
 
+      # ==========================================
+      # CHECKOUT REPOSITORY
+      # ==========================================
+
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+      # ==========================================
+      # CONFIGURE AWS CREDENTIALS
+      # ==========================================
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -46,10 +56,11 @@ jobs:
 
       - name: Get AWS Account ID
         run: |
+
           echo "ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)" >> $GITHUB_ENV
 
       # ==========================================
-      # DEPLOY WEBSITE TO STAGING
+      # DEPLOY WEBSITE TO STAGING S3
       # ==========================================
 
       - name: Deploy Website To STAGING S3
@@ -70,7 +81,7 @@ jobs:
           --output text)" >> $GITHUB_ENV
 
       # ==========================================
-      # INVALIDATE STAGING CACHE
+      # INVALIDATE STAGING CLOUDFRONT CACHE
       # ==========================================
 
       - name: Invalidate STAGING CloudFront Cache
@@ -81,10 +92,12 @@ jobs:
           --paths "/*"
 
   # =====================================================
-  # PRODUCTION DEPLOYMENT
+  # JOB 2 — PRODUCTION
   # =====================================================
 
   deploy-production:
+
+    name: Deploy To Production
 
     needs: deploy-staging
 
@@ -95,8 +108,16 @@ jobs:
 
     steps:
 
+      # ==========================================
+      # CHECKOUT REPOSITORY
+      # ==========================================
+
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+      # ==========================================
+      # CONFIGURE AWS CREDENTIALS
+      # ==========================================
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -112,10 +133,11 @@ jobs:
 
       - name: Get AWS Account ID
         run: |
+
           echo "ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)" >> $GITHUB_ENV
 
       # ==========================================
-      # DEPLOY WEBSITE TO PROD
+      # DEPLOY WEBSITE TO PROD S3
       # ==========================================
 
       - name: Deploy Website To PROD S3
@@ -124,7 +146,7 @@ jobs:
           aws s3 sync website/ s3://aws-portfolio-prod-${ACCOUNT_ID} --delete
 
       # ==========================================
-      # GET PROD DISTRIBUTION ID
+      # GET PRODUCTION DISTRIBUTION ID
       # ==========================================
 
       - name: Get Production Distribution ID
@@ -136,7 +158,7 @@ jobs:
           --output text)" >> $GITHUB_ENV
 
       # ==========================================
-      # INVALIDATE PROD CACHE
+      # INVALIDATE PRODUCTION CLOUDFRONT CACHE
       # ==========================================
 
       - name: Invalidate PROD CloudFront Cache
