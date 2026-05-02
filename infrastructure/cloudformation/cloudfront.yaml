@@ -108,7 +108,7 @@ Outputs:
 
   StagingDistributionid:
     Description: Staging CloudFront Distribution ID
-    Value: !Ref StagingDistributionid
+    Value: !Ref StagingDistribution
 
   StagingDistributionDomain:
     Description: Staging CloudFront Domain
@@ -116,7 +116,7 @@ Outputs:
 
   ProductionDistributionid:
     Description: Production CloudFront Distribution ID
-    Value: !Ref ProductionDistributionid
+    Value: !Ref ProductionDistribution
 
   ProductionDistributionDomain:
     Description: Production CloudFront Domain
