@@ -93,7 +93,6 @@ Resources:
 
         RestrictPublicBuckets: true
 
-  
   # =========================================================
   # STAGING CLOUDFRONT DISTRIBUTION
   # =========================================================
@@ -295,7 +294,3 @@ Outputs:
   OriginAccessControlId:
     Description: CloudFront Origin Access Control ID
     Value: !GetAtt PortfolioOAC.Id
-    
-  WAFWebACLArn:
-    Description: AWS WAF Web ACL ARN
-    Value: !GetAtt PortfolioWebACL.Arn
