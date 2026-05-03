@@ -94,6 +94,60 @@ Resources:
         RestrictPublicBuckets: true
 
   # =========================================================
+  # AWS WAF
+  # =========================================================
+
+  PortfolioWebACL:
+    Type: AWS::WAFv2::WebACL
+
+    Properties:
+
+      Name: PortfolioWebACL
+
+      Scope: CLOUDFRONT
+
+      DefaultAction:
+        Allow: {}
+
+      VisibilityConfig:
+
+        SampledRequestsEnabled: true
+
+        CloudWatchMetricsEnabled: true
+
+        MetricName: PortfolioWebACL
+
+      Rules:
+
+        # =====================================================
+        # AWS MANAGED COMMON RULES
+        # =====================================================
+
+        - Name: AWSManagedCommonRuleSet
+
+          Priority: 0
+
+          OverrideAction:
+            None: {}
+
+          Statement:
+
+            ManagedRuleGroupStatement:
+
+              VendorName: AWS
+
+              Name: AWSManagedRulesCommonRuleSet
+
+          VisibilityConfig:
+
+            SampledRequestsEnabled: true
+
+            CloudWatchMetricsEnabled: true
+
+            MetricName: AWSManagedCommonRuleSet
+
+
+  # =========================================================
   # STAGING CLOUDFRONT DISTRIBUTION
   # =========================================================
 
@@ -110,6 +164,8 @@ Resources:
 
         DefaultRootObject: index.html
 
+        WebACLId: !GetAtt PortfolioWebACL.Arn
+        
         Origins:
 
           - Id: StagingS3Origin
@@ -157,6 +213,8 @@ Resources:
         Comment: Production CloudFront Distribution
 
         DefaultRootObject: index.html
+          
+        WebACLId: !GetAtt PortfolioWebACL.Arn
 
         Origins:
 
@@ -290,3 +348,7 @@ Outputs:
   OriginAccessControlId:
     Description: CloudFront Origin Access Control ID
     Value: !GetAtt PortfolioOAC.Id
+    
+  WAFWebACLArn:
+    Description: AWS WAF Web ACL ARN
+    Value: !GetAtt PortfolioWebACL.Arn
