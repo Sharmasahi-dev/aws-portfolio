@@ -93,60 +93,7 @@ Resources:
 
         RestrictPublicBuckets: true
 
-  # =========================================================
-  # AWS WAF
-  # =========================================================
-
-  PortfolioWebACL:
-    Type: AWS::WAFv2::WebACL
-
-    Properties:
-
-      Name: PortfolioWebACL
-
-      Scope: CLOUDFRONT
-
-      DefaultAction:
-        Allow: {}
-
-      VisibilityConfig:
-
-        SampledRequestsEnabled: true
-
-        CloudWatchMetricsEnabled: true
-
-        MetricName: PortfolioWebACL
-
-      Rules:
-
-        # =====================================================
-        # AWS MANAGED COMMON RULES
-        # =====================================================
-
-        - Name: AWSManagedCommonRuleSet
-
-          Priority: 0
-
-          OverrideAction:
-            None: {}
-
-          Statement:
-
-            ManagedRuleGroupStatement:
-
-              VendorName: AWS
-
-              Name: AWSManagedRulesCommonRuleSet
-
-          VisibilityConfig:
-
-            SampledRequestsEnabled: true
-
-            CloudWatchMetricsEnabled: true
-
-            MetricName: AWSManagedCommonRuleSet
-
-
+  
   # =========================================================
   # STAGING CLOUDFRONT DISTRIBUTION
   # =========================================================
