@@ -1,6 +1,3 @@
-# infrastructure/cloudformation/infrastructure.yaml
-
-```yaml
 AWSTemplateFormatVersion: '2010-09-09'
 
 Description: Complete Portfolio Infrastructure With Private S3 + CloudFront + OAC
