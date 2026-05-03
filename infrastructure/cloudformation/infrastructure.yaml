@@ -109,7 +109,7 @@ Resources:
         Comment: Staging CloudFront Distribution
 
         DefaultRootObject: index.html
-        
+
         Origins:
 
           - Id: StagingS3Origin
@@ -118,6 +118,7 @@ Resources:
 
             S3OriginConfig: {}
 
+            OriginAccessControlId: !GetAtt PortfolioOAC.Id
 
         DefaultCacheBehavior:
 
@@ -156,7 +157,6 @@ Resources:
         Comment: Production CloudFront Distribution
 
         DefaultRootObject: index.html
-          
 
         Origins:
 
@@ -166,6 +166,7 @@ Resources:
 
             S3OriginConfig: {}
 
+            OriginAccessControlId: !GetAtt PortfolioOAC.Id
 
         DefaultCacheBehavior:
 
