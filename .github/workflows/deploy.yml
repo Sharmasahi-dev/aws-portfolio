@@ -40,7 +40,18 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       # ==========================================
-      # DEPLOY CLOUDFORMATION INFRASTRUCTURE
+      # DEPLOY S3 INFRASTRUCTURE
+      # ==========================================
+
+      - name: Deploy S3 Infrastructure
+        run: |
+
+          aws cloudformation deploy \
+          --template-file infrastructure/cloudformation/s3.yaml \
+          --stack-name aws-portfolio-s3
+
+      # ==========================================
+      # DEPLOY CLOUDFRONT INFRASTRUCTURE
       # ==========================================
 
       - name: Deploy CloudFront Infrastructure
@@ -54,7 +65,7 @@ jobs:
       # WAIT FOR CLOUDFORMATION STACK
       # ==========================================
 
-      - name: Wait For CloudFormation Stack
+      - name: Wait For CloudFront Stack
         run: |
 
           aws cloudformation wait stack-create-complete \
