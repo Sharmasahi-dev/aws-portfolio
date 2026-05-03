@@ -1,0 +1,295 @@
+# infrastructure/cloudformation/infrastructure.yaml
+
+```yaml
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: Complete Portfolio Infrastructure With Private S3 + CloudFront + OAC
+
+Parameters:
+
+  ProjectName:
+    Type: String
+    Default: aws-portfolio
+
+Resources:
+
+  # =========================================================
+  # ORIGIN ACCESS CONTROL (OAC)
+  # =========================================================
+
+  PortfolioOAC:
+    Type: AWS::CloudFront::OriginAccessControl
+
+    Properties:
+
+      OriginAccessControlConfig:
+
+        Name: PortfolioOAC
+
+        Description: OAC For Private S3 Access
+
+        OriginAccessControlOriginType: s3
+
+        SigningBehavior: always
+
+        SigningProtocol: sigv4
+
+  # =========================================================
+  # STAGING S3 BUCKET
+  # =========================================================
+
+  StagingBucket:
+    Type: AWS::S3::Bucket
+
+    Properties:
+
+      BucketName: !Sub "${ProjectName}-staging-${AWS::AccountId}"
+
+      VersioningConfiguration:
+        Status: Enabled
+
+      BucketEncryption:
+
+        ServerSideEncryptionConfiguration:
+
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+
+      PublicAccessBlockConfiguration:
+
+        BlockPublicAcls: true
+
+        IgnorePublicAcls: true
+
+        BlockPublicPolicy: true
+
+        RestrictPublicBuckets: true
+
+  # =========================================================
+  # PRODUCTION S3 BUCKET
+  # =========================================================
+
+  ProductionBucket:
+    Type: AWS::S3::Bucket
+
+    Properties:
+
+      BucketName: !Sub "${ProjectName}-prod-${AWS::AccountId}"
+
+      VersioningConfiguration:
+        Status: Enabled
+
+      BucketEncryption:
+
+        ServerSideEncryptionConfiguration:
+
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+
+      PublicAccessBlockConfiguration:
+
+        BlockPublicAcls: true
+
+        IgnorePublicAcls: true
+
+        BlockPublicPolicy: true
+
+        RestrictPublicBuckets: true
+
+  # =========================================================
+  # STAGING CLOUDFRONT DISTRIBUTION
+  # =========================================================
+
+  StagingDistribution:
+    Type: AWS::CloudFront::Distribution
+
+    Properties:
+
+      DistributionConfig:
+
+        Enabled: true
+
+        Comment: Staging CloudFront Distribution
+
+        DefaultRootObject: index.html
+
+        Origins:
+
+          - Id: StagingS3Origin
+
+            DomainName: !GetAtt StagingBucket.RegionalDomainName
+
+            S3OriginConfig: {}
+
+            OriginAccessControlId: !GetAtt PortfolioOAC.Id
+
+        DefaultCacheBehavior:
+
+          TargetOriginId: StagingS3Origin
+
+          ViewerProtocolPolicy: redirect-to-https
+
+          AllowedMethods:
+            - GET
+            - HEAD
+
+          CachedMethods:
+            - GET
+            - HEAD
+
+          Compress: true
+
+          ForwardedValues:
+            QueryString: false
+
+        PriceClass: PriceClass_100
+
+  # =========================================================
+  # PRODUCTION CLOUDFRONT DISTRIBUTION
+  # =========================================================
+
+  ProductionDistribution:
+    Type: AWS::CloudFront::Distribution
+
+    Properties:
+
+      DistributionConfig:
+
+        Enabled: true
+
+        Comment: Production CloudFront Distribution
+
+        DefaultRootObject: index.html
+
+        Origins:
+
+          - Id: ProductionS3Origin
+
+            DomainName: !GetAtt ProductionBucket.RegionalDomainName
+
+            S3OriginConfig: {}
+
+            OriginAccessControlId: !GetAtt PortfolioOAC.Id
+
+        DefaultCacheBehavior:
+
+          TargetOriginId: ProductionS3Origin
+
+          ViewerProtocolPolicy: redirect-to-https
+
+          AllowedMethods:
+            - GET
+            - HEAD
+
+          CachedMethods:
+            - GET
+            - HEAD
+
+          Compress: true
+
+          ForwardedValues:
+            QueryString: false
+
+        PriceClass: PriceClass_100
+
+  # =========================================================
+  # STAGING BUCKET POLICY
+  # =========================================================
+
+  StagingBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+
+    Properties:
+
+      Bucket: !Ref StagingBucket
+
+      PolicyDocument:
+
+        Version: '2012-10-17'
+
+        Statement:
+
+          - Sid: AllowCloudFrontAccess
+
+            Effect: Allow
+
+            Principal:
+              Service: cloudfront.amazonaws.com
+
+            Action:
+              - s3:GetObject
+
+            Resource:
+              - !Sub "${StagingBucket.Arn}/*"
+
+            Condition:
+
+              StringEquals:
+
+                AWS:SourceArn: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${StagingDistribution}"
+
+  # =========================================================
+  # PRODUCTION BUCKET POLICY
+  # =========================================================
+
+  ProductionBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+
+    Properties:
+
+      Bucket: !Ref ProductionBucket
+
+      PolicyDocument:
+
+        Version: '2012-10-17'
+
+        Statement:
+
+          - Sid: AllowCloudFrontAccess
+
+            Effect: Allow
+
+            Principal:
+              Service: cloudfront.amazonaws.com
+
+            Action:
+              - s3:GetObject
+
+            Resource:
+              - !Sub "${ProductionBucket.Arn}/*"
+
+            Condition:
+
+              StringEquals:
+
+                AWS:SourceArn: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${ProductionDistribution}"
+
+Outputs:
+
+  StagingBucketName:
+    Description: Staging S3 Bucket Name
+    Value: !Ref StagingBucket
+
+  ProductionBucketName:
+    Description: Production S3 Bucket Name
+    Value: !Ref ProductionBucket
+
+  StagingDistributionId:
+    Description: Staging CloudFront Distribution ID
+    Value: !Ref StagingDistribution
+
+  StagingDistributionDomain:
+    Description: Staging CloudFront Domain
+    Value: !GetAtt StagingDistribution.DomainName
+
+  ProductionDistributionId:
+    Description: Production CloudFront Distribution ID
+    Value: !Ref ProductionDistribution
+
+  ProductionDistributionDomain:
+    Description: Production CloudFront Domain
+    Value: !GetAtt ProductionDistribution.DomainName
+
+  OriginAccessControlId:
+    Description: CloudFront Origin Access Control ID
+    Value: !GetAtt PortfolioOAC.Id

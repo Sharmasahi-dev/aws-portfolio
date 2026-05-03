@@ -1,4 +1,4 @@
-name: Deploy Portfolio S3 Infrastructure And Website
+name: Deploy Portfolio Infrastructure And Website
 
 on:
 
@@ -40,15 +40,27 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       # ==========================================
-      # DEPLOY S3 INFRASTRUCTURE ONLY
+      # DEPLOY COMPLETE INFRASTRUCTURE
       # ==========================================
 
-      - name: Deploy S3 Infrastructure
+      - name: Deploy Infrastructure Stack
         run: |
 
           aws cloudformation deploy \
-          --template-file infrastructure/cloudformation/s3.yaml \
-          --stack-name aws-portfolio-s3
+          --template-file infrastructure/cloudformation/infrastructure.yaml \
+          --stack-name aws-portfolio-infrastructure
+
+      # ==========================================
+      # WAIT FOR INFRASTRUCTURE STACK
+      # ==========================================
+
+      - name: Wait For Infrastructure Stack
+        run: |
+
+          aws cloudformation wait stack-create-complete \
+          --stack-name aws-portfolio-infrastructure || \
+          aws cloudformation wait stack-update-complete \
+          --stack-name aws-portfolio-infrastructure
 
       # ==========================================
       # GET AWS ACCOUNT ID
@@ -69,6 +81,41 @@ jobs:
         run: |
 
           aws s3 sync website/ s3://aws-portfolio-staging-${ACCOUNT_ID} --delete
+
+      # ==========================================
+      # GET STAGING DISTRIBUTION ID
+      # ==========================================
+
+      - name: Get Staging Distribution ID
+        run: |
+
+          STAGING_ID=$(aws cloudformation describe-stacks \
+            --stack-name aws-portfolio-infrastructure \
+            --query "Stacks[0].Outputs[?OutputKey=='StagingDistributionId'].OutputValue" \
+            --output text)
+
+          echo "STAGING_DISTRIBUTION_ID=$STAGING_ID" >> $GITHUB_ENV
+
+      # ==========================================
+      # WAIT FOR STAGING DISTRIBUTION
+      # ==========================================
+
+      - name: Wait For STAGING Distribution Deployment
+        run: |
+
+          aws cloudfront wait distribution-deployed \
+          --id ${STAGING_DISTRIBUTION_ID}
+
+      # ==========================================
+      # INVALIDATE STAGING CLOUDFRONT CACHE
+      # ==========================================
+
+      - name: Invalidate STAGING CloudFront Cache
+        run: |
+
+          aws cloudfront create-invalidation \
+          --distribution-id ${STAGING_DISTRIBUTION_ID} \
+          --paths "/*"
 
   # =====================================================
   # JOB 2 — PRODUCTION
@@ -125,3 +172,38 @@ jobs:
         run: |
 
           aws s3 sync website/ s3://aws-portfolio-prod-${ACCOUNT_ID} --delete
+
+      # ==========================================
+      # GET PRODUCTION DISTRIBUTION ID
+      # ==========================================
+
+      - name: Get Production Distribution ID
+        run: |
+
+          PROD_ID=$(aws cloudformation describe-stacks \
+            --stack-name aws-portfolio-infrastructure \
+            --query "Stacks[0].Outputs[?OutputKey=='ProductionDistributionId'].OutputValue" \
+            --output text)
+
+          echo "PRODUCTION_DISTRIBUTION_ID=$PROD_ID" >> $GITHUB_ENV
+
+      # ==========================================
+      # WAIT FOR PROD DISTRIBUTION
+      # ==========================================
+
+      - name: Wait For PROD Distribution Deployment
+        run: |
+
+          aws cloudfront wait distribution-deployed \
+          --id ${PRODUCTION_DISTRIBUTION_ID}
+
+      # ==========================================
+      # INVALIDATE PROD CLOUDFRONT CACHE
+      # ==========================================
+
+      - name: Invalidate PROD CloudFront Cache
+        run: |
+
+          aws cloudfront create-invalidation \
+          --distribution-id ${PRODUCTION_DISTRIBUTION_ID} \
+          --paths "/*"
