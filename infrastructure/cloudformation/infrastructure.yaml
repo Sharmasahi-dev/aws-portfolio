@@ -109,8 +109,6 @@ Resources:
         Comment: Staging CloudFront Distribution
 
         DefaultRootObject: index.html
-
-        WebACLId: !GetAtt PortfolioWebACL.Arn
         
         Origins:
 
@@ -120,7 +118,6 @@ Resources:
 
             S3OriginConfig: {}
 
-            OriginAccessControlId: !GetAtt PortfolioOAC.Id
 
         DefaultCacheBehavior:
 
@@ -160,7 +157,6 @@ Resources:
 
         DefaultRootObject: index.html
           
-        WebACLId: !GetAtt PortfolioWebACL.Arn
 
         Origins:
 
@@ -170,7 +166,6 @@ Resources:
 
             S3OriginConfig: {}
 
-            OriginAccessControlId: !GetAtt PortfolioOAC.Id
 
         DefaultCacheBehavior:
 
