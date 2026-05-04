@@ -31,7 +31,7 @@ body {
 .navbar {
     position: fixed;
     width: 100%;
-    height: 70px; /* fixed height for consistency */
+    height: 90px; /* fixed height for consistency */
     top: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.75);
@@ -44,7 +44,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px;   /* match navbar height */
+    height: 90px;   /* match navbar height */
     padding: 0 5%;  /* horizontal spacing instead of vertical */
 }
 
@@ -57,12 +57,12 @@ body {
 }
 
 .logo img {
-    height: 60px;
+    height: 80px;
     width: auto;
     object-fit: contain;
     display: block;
     transition: 0.3s ease;
-    filter: drop-shadow(0 0 12px rgba(0,119,255,0.4));
+    filter: drop-shadow(0 0 17px rgba(0,119,255,0.6));
 }
 
 .logo img:hover {
