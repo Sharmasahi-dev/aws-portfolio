@@ -43,7 +43,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 0;
+    padding: 10px 0;
 }
 
 /* Logo */
@@ -55,15 +55,16 @@ body {
 }
 
 .logo img {
-    height: 70px;
+    height: 50px;
     width: auto;
     object-fit: contain;
     display: block;
     transition: 0.3s ease;
+    filter: drop-shadow(0 0 10px rgba(0,119,255,0.3));
 }
 
 .logo img:hover {
-    transform: scale(1.05);
+    transform: scale(1.08);
 }
 
 .logo-text {
