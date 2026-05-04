@@ -31,7 +31,7 @@ body {
 .navbar {
     position: fixed;
     width: 100%;
-    height: 70px; /* fixed height for consistency */
+    height: 70px;
     top: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.75);
@@ -44,8 +44,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px;   /* match navbar height */
-    padding: 0 5%;  /* horizontal spacing instead of vertical */
+    height: 70px;
+    padding: 0 5%;
 }
 
 /* Logo */
@@ -53,27 +53,18 @@ body {
 .logo {
     display: flex;
     align-items: center;
-    gap: 14px;
 }
 
 .logo img {
-    height: 110px;
+    height: 55px;
     width: auto;
     object-fit: contain;
-    display: block;
     transition: 0.3s ease;
-    filter: drop-shadow(0 0 25px rgba(0,119,255,1.2));
+    filter: drop-shadow(0 0 12px rgba(0,119,255,0.4));
 }
 
 .logo img:hover {
-    transform: scale(1.4);
-}
-
-.logo-text {
-    color: white;
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: 2px;
+    transform: scale(1.1);
 }
 
 /* Navigation */
@@ -106,33 +97,30 @@ body {
 }
 
 /* =========================
-   LANDING HERO
+   LANDING HERO (IMAGE)
 ========================= */
 
 .landing-hero {
     position: relative;
     min-height: 100vh;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     overflow: hidden;
-    background:
-        radial-gradient(circle at center,
-        rgba(0,119,255,0.10),
-        transparent 35%),
-        linear-gradient(to bottom, #000, #050505);
+
+    background: url("../images/hero-bg.jpg") center/cover no-repeat;
 }
 
-/* Star Overlay */
+/* Dark Overlay */
 
-.hero-overlay {
+.landing-hero::after {
+    content: "";
     position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image:
-        radial-gradient(white 1px, transparent 1px);
-    background-size: 60px 60px;
-    opacity: 0.10;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 1;
 }
 
 /* Blue Glow */
@@ -140,12 +128,15 @@ body {
 .landing-hero::before {
     content: "";
     position: absolute;
-    width: 550px;
-    height: 550px;
-    background: rgba(0,119,255,0.08);
-    border-radius: 50%;
+    width: 600px;
+    height: 600px;
+    background: rgba(0,119,255,0.15);
     filter: blur(120px);
+    border-radius: 50%;
+    z-index: 1;
 }
+
+/* Hero Content */
 
 .hero-content {
     position: relative;
@@ -161,13 +152,13 @@ body {
 }
 
 .hero-content h1 {
-    font-size: 82px;
+    font-size: 80px;
     line-height: 1.1;
     margin-bottom: 45px;
     font-weight: 800;
 }
 
-/* Work Button */
+/* Button */
 
 .work-btn {
     display: inline-flex;
@@ -212,8 +203,6 @@ body {
     gap: 30px;
 }
 
-/* Dashboard Card */
-
 .dashboard-card {
     background: rgba(255,255,255,0.03);
     border: 1px solid rgba(255,255,255,0.06);
@@ -227,8 +216,6 @@ body {
     transform: translateY(-8px);
     border-color: rgba(255,255,255,0.15);
 }
-
-/* Profile Card */
 
 .profile-card img {
     width: 100%;
@@ -316,7 +303,7 @@ body {
 }
 
 /* =========================
-   EXPERIENCE CARDS
+   EXPERIENCE
 ========================= */
 
 .cards {
@@ -431,21 +418,12 @@ footer {
 
 @media (max-width: 768px) {
 
-    .nav-container {
-        padding: 12px 0;
-    }
-
     .logo img {
-        height: 55px;
-    }
-
-    .logo-text {
-        font-size: 12px;
-        letter-spacing: 1px;
+        height: 45px;
     }
 
     .hero-content h1 {
-        font-size: 48px;
+        font-size: 42px;
     }
 
     .hero-small {
@@ -454,7 +432,7 @@ footer {
 
     .work-btn {
         font-size: 16px;
-        padding: 15px 25px;
+        padding: 14px 24px;
     }
 
     .dashboard-grid {
@@ -479,16 +457,14 @@ footer {
 
     .nav-links {
         position: absolute;
-        top: 85px;
+        top: 70px;
         right: 0;
-        background: rgba(0,0,0,0.96);
+        background: rgba(0,0,0,0.95);
         backdrop-filter: blur(12px);
         width: 220px;
         flex-direction: column;
         padding: 30px;
         display: none;
-        border-left: 1px solid #222;
-        border-bottom: 1px solid #222;
     }
 
     .nav-links.active {
