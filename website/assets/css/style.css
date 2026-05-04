@@ -13,7 +13,10 @@ body {
     background: #000;
     color: #fff;
     line-height: 1.6;
+    overflow-x: hidden;
 }
+
+/* Container */
 
 .container {
     width: 90%;
@@ -21,12 +24,15 @@ body {
     margin: auto;
 }
 
-/* Navbar */
+/* =========================
+   NAVBAR
+========================= */
 
 .navbar {
     position: fixed;
     width: 100%;
     top: 0;
+    left: 0;
     background: rgba(0, 0, 0, 0.72);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255,255,255,0.08);
@@ -62,7 +68,7 @@ body {
 
 .logo-text {
     color: white;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     letter-spacing: 2px;
 }
@@ -71,12 +77,13 @@ body {
 
 .nav-links {
     display: flex;
+    align-items: center;
     gap: 30px;
     list-style: none;
 }
 
 .nav-links a {
-    color: #ddd;
+    color: #d1d1d1;
     text-decoration: none;
     transition: 0.3s ease;
     font-size: 15px;
@@ -87,111 +94,179 @@ body {
     color: white;
 }
 
+/* Mobile Menu */
+
 .menu-toggle {
     display: none;
     font-size: 28px;
     cursor: pointer;
 }
 
-/* Hero */
+/* =========================
+   LANDING HERO
+========================= */
 
-.hero {
+.landing-hero {
+    position: relative;
     min-height: 100vh;
     display: flex;
+    justify-content: center;
     align-items: center;
-    padding-top: 100px;
+    overflow: hidden;
     background:
-        radial-gradient(circle at top left, rgba(0, 119, 255, 0.12), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(255,255,255,0.05), transparent 25%),
-        linear-gradient(to bottom, #000, #111);
+        radial-gradient(circle at center,
+        rgba(0,119,255,0.10),
+        transparent 35%),
+        linear-gradient(to bottom, #000, #050505);
 }
 
-.hero-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 80px;
-    flex-wrap: wrap;
+/* Star Overlay */
+
+.hero-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(white 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.10;
 }
 
-.hero-image img {
-    width: 350px;
-    height: 350px;
-    object-fit: cover;
+/* Blue Glow */
+
+.landing-hero::before {
+    content: "";
+    position: absolute;
+    width: 550px;
+    height: 550px;
+    background: rgba(0,119,255,0.08);
     border-radius: 50%;
-    border: 4px solid #222;
-    box-shadow:
-        0 0 40px rgba(255,255,255,0.08),
-        0 0 80px rgba(0,119,255,0.12);
+    filter: blur(120px);
 }
 
 .hero-content {
-    flex: 1;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 20px;
 }
 
-.subtitle {
-    color: #888;
-    letter-spacing: 5px;
-    margin-bottom: 20px;
-    font-size: 14px;
+.hero-small {
+    color: #cfcfcf;
+    font-size: 22px;
+    margin-bottom: 25px;
 }
 
-.hero h1 {
-    font-size: 72px;
-    line-height: 1.15;
-    margin-bottom: 30px;
-    font-weight: 700;
+.hero-content h1 {
+    font-size: 82px;
+    line-height: 1.1;
+    margin-bottom: 45px;
+    font-weight: 800;
 }
 
-.hero h1 span {
+/* Work Button */
+
+.work-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 35px;
+    border-radius: 18px;
+    text-decoration: none;
+    color: white;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    transition: 0.3s ease;
+    font-size: 18px;
+}
+
+.work-btn:hover {
+    transform: translateY(-5px);
+    background: rgba(255,255,255,0.1);
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background: #00ff88;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #00ff88;
+}
+
+/* =========================
+   DASHBOARD SECTION
+========================= */
+
+.dashboard-section {
+    padding: 120px 5%;
+    background: #020202;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+/* Dashboard Card */
+
+.dashboard-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 28px;
+    padding: 40px;
+    backdrop-filter: blur(12px);
+    transition: 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255,255,255,0.15);
+}
+
+/* Profile Card */
+
+.profile-card img {
+    width: 100%;
+    max-width: 280px;
     display: block;
-    color: #888;
+    margin: auto;
+    margin-bottom: 30px;
 }
 
-.hero-description {
-    color: #ccc;
-    font-size: 20px;
-    max-width: 700px;
-    margin-bottom: 40px;
+.dashboard-card h2 {
+    font-size: 34px;
+    margin-bottom: 20px;
 }
 
-.hero-buttons {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+.dashboard-card p {
+    color: #bdbdbd;
+    font-size: 18px;
+    line-height: 1.8;
 }
 
-.btn {
-    padding: 15px 35px;
-    border-radius: 50px;
+/* Contact Button */
+
+.contact-btn {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 16px 28px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.06);
+    color: white;
     text-decoration: none;
     transition: 0.3s ease;
-    font-weight: 600;
 }
 
-.primary-btn {
-    background: white;
-    color: black;
-}
-
-.primary-btn:hover {
-    background: #ddd;
-}
-
-.secondary-btn {
-    border: 1px solid #555;
-    color: white;
-}
-
-.secondary-btn:hover {
-    background: #111;
-}
-
-.btn:hover {
+.contact-btn:hover {
+    background: rgba(255,255,255,0.12);
     transform: translateY(-3px);
 }
 
-/* Sections */
+/* =========================
+   GENERAL SECTIONS
+========================= */
 
 .section {
     padding: 120px 0;
@@ -214,6 +289,10 @@ body {
     line-height: 1.2;
 }
 
+/* =========================
+   ABOUT / CONTACT
+========================= */
+
 .about-content p {
     color: #ccc;
     margin-bottom: 25px;
@@ -221,7 +300,21 @@ body {
     max-width: 900px;
 }
 
-/* Cards */
+.about-content a {
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    transition: 0.3s ease;
+}
+
+.about-content a:hover {
+    color: #00bfff;
+    border-color: #00bfff;
+}
+
+/* =========================
+   EXPERIENCE CARDS
+========================= */
 
 .cards {
     display: grid;
@@ -268,7 +361,9 @@ body {
     color: #ccc;
 }
 
-/* Skills */
+/* =========================
+   SKILLS
+========================= */
 
 .skills-grid {
     display: grid;
@@ -291,7 +386,9 @@ body {
     border-color: #444;
 }
 
-/* Certifications */
+/* =========================
+   CERTIFICATIONS
+========================= */
 
 .cert-grid {
     display: grid;
@@ -313,7 +410,9 @@ body {
     transform: translateY(-5px);
 }
 
-/* Footer */
+/* =========================
+   FOOTER
+========================= */
 
 footer {
     border-top: 1px solid #222;
@@ -323,7 +422,9 @@ footer {
     background: #050505;
 }
 
-/* Responsive */
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (max-width: 768px) {
 
@@ -336,31 +437,37 @@ footer {
     }
 
     .logo-text {
-        font-size: 13px;
+        font-size: 12px;
         letter-spacing: 1px;
     }
 
-    .hero-wrapper {
-        flex-direction: column;
-        text-align: center;
-        gap: 50px;
+    .hero-content h1 {
+        font-size: 48px;
     }
 
-    .hero-image img {
-        width: 220px;
-        height: 220px;
+    .hero-small {
+        font-size: 16px;
     }
 
-    .hero-buttons {
-        justify-content: center;
+    .work-btn {
+        font-size: 16px;
+        padding: 15px 25px;
     }
 
-    .hero h1 {
-        font-size: 42px;
+    .dashboard-grid {
+        grid-template-columns: 1fr;
     }
 
-    .hero-description {
-        font-size: 18px;
+    .dashboard-card h2 {
+        font-size: 28px;
+    }
+
+    .dashboard-card p {
+        font-size: 16px;
+    }
+
+    .profile-card img {
+        max-width: 220px;
     }
 
     .section-title h2 {
@@ -371,7 +478,7 @@ footer {
         position: absolute;
         top: 85px;
         right: 0;
-        background: rgba(0,0,0,0.95);
+        background: rgba(0,0,0,0.96);
         backdrop-filter: blur(12px);
         width: 220px;
         flex-direction: column;
