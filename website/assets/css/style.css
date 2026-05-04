@@ -57,16 +57,16 @@ body {
 }
 
 .logo img {
-    height: 90px;
+    height: 110px;
     width: auto;
     object-fit: contain;
     display: block;
     transition: 0.3s ease;
-    filter: drop-shadow(0 0 20px rgba(0,119,255,0.8));
+    filter: drop-shadow(0 0 25px rgba(0,119,255,1.2));
 }
 
 .logo img:hover {
-    transform: scale(1.2);
+    transform: scale(1.4);
 }
 
 .logo-text {
