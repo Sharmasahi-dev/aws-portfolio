@@ -20,24 +20,34 @@ const globeContainer = document.getElementById("globeViz");
 
 if (globeContainer) {
 
-    const world = Globe()
+    const world = Globe()(globeContainer)
 
-    (globeContainer)
+        .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
 
-    .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
+        .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
 
-    .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
+        .backgroundColor('rgba(0,0,0,0)')
 
-    .backgroundColor('#000000')
+        .showAtmosphere(true)
 
-    .showAtmosphere(true)
+        .atmosphereColor('#3fa9ff')
 
-    .atmosphereColor('#3fa9ff')
+        .atmosphereAltitude(0.22);
 
-    .atmosphereAltitude(0.25);
+    /* SIZE */
+
+    world.width(globeContainer.offsetWidth);
+
+    world.height(340);
+
+    /* AUTO ROTATE */
 
     world.controls().autoRotate = true;
 
-    world.controls().autoRotateSpeed = 0.7;
+    world.controls().autoRotateSpeed = 0.8;
+
+    /* REMOVE ZOOM */
+
+    world.controls().enableZoom = false;
 
 }
