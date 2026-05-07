@@ -1,24 +1,22 @@
 /* =========================
-   MOBILE MENU
-========================= */
-
-const menuToggle = document.getElementById("menu-toggle");
-
-const navLinks = document.querySelector(".nav-links");
-
-menuToggle.addEventListener("click", () => {
-
-    navLinks.classList.toggle("active");
-
-});
-
-/* =========================
    3D EARTH GLOBE
 ========================= */
 
 const globeContainer = document.getElementById("globeViz");
 
 if (globeContainer) {
+
+    /* LOCATION */
+
+    const locations = [
+        {
+            lat: 35.8617,
+            lng: 139.6455,
+            size: 0.35,
+            color: "#00ff88",
+            label: "Saitama, Japan 🇯🇵"
+        }
+    ];
 
     const world = Globe()(globeContainer)
 
@@ -32,7 +30,23 @@ if (globeContainer) {
 
         .atmosphereColor('#3fa9ff')
 
-        .atmosphereAltitude(0.22);
+        .atmosphereAltitude(0.22)
+
+        /* LOCATION POINT */
+
+        .pointsData(locations)
+
+        .pointLat('lat')
+
+        .pointLng('lng')
+
+        .pointColor('color')
+
+        .pointAltitude('size')
+
+        .pointRadius(0.5)
+
+        .pointLabel('label');
 
     /* SIZE */
 
@@ -44,9 +58,9 @@ if (globeContainer) {
 
     world.controls().autoRotate = true;
 
-    world.controls().autoRotateSpeed = 0.8;
+    world.controls().autoRotateSpeed = 0.7;
 
-    /* REMOVE ZOOM */
+    /* DISABLE ZOOM */
 
     world.controls().enableZoom = false;
 
