@@ -133,7 +133,7 @@ body {
     position: relative;
     z-index: 2;
 
-    max-width: 1300px;
+    max-width: 1200px;
 
     text-align: center;
 }
@@ -145,8 +145,8 @@ body {
 }
 
 .hero-content h1 {
-    font-size: 110px;
-    line-height: 1;
+    font-size: 95px;
+    line-height: 1.05;
     font-weight: 800;
     margin-bottom: 35px;
     color: white;
@@ -156,7 +156,7 @@ body {
     color: #d0d0d0;
     font-size: 24px;
     line-height: 1.8;
-    max-width: 1100px;
+    max-width: 1200px;
     margin: auto;
     margin-bottom: 45px;
 }
