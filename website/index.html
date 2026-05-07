@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+    <script src="https://unpkg.com/three"></script>
+    <script src="https://unpkg.com/globe.gl"></script>
 
     <meta charset="UTF-8" />
 
@@ -140,7 +142,10 @@
 </div>
 
             <!-- REMOTE CARD -->
-            <div class="dashboard-card">
+            <div class="dashboard-card globe-card">
+
+            <!-- 3D EARTH -->
+                <div id="globeViz"></div>
 
                 <h2>
                     Available for Collaboration
@@ -153,7 +158,11 @@
                 </p>
 
                 <a href="#contact" class="contact-btn">
+
+                    <span class="dot"></span>
+            
                     Contact Me
+            
                 </a>
 
             </div>
