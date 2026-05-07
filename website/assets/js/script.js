@@ -14,7 +14,19 @@ if (globeContainer) {
             lng: 139.6455,
             size: 0.35,
             color: "#00ff88",
-            label: "Saitama, Japan 🇯🇵"
+            label: `
+                <div style="
+                    background: rgba(0,0,0,0.85);
+                    padding: 10px 16px;
+                    border-radius: 12px;
+                    color: white;
+                    font-size: 14px;
+                    font-family: Arial;
+                    border: 1px solid rgba(255,255,255,0.1);
+                ">
+                    📍 Saitama, Japan 🇯🇵
+                </div>
+            `
         }
     ];
 
@@ -42,11 +54,27 @@ if (globeContainer) {
 
         .pointColor('color')
 
-        .pointAltitude('size')
+        .pointAltitude(0.02)
 
-        .pointRadius(0.5)
+        .pointRadius(0.18)
 
-        .pointLabel('label');
+        .pointColor('color')
+
+        .htmlElementsData(locations)
+
+        .htmlLat('lat')
+
+        .htmlLng('lng')
+
+        .htmlElement(d => {
+
+        const el = document.createElement('div');
+
+        el.innerHTML = d.label;
+
+        return el;
+
+        });
 
     /* SIZE */
 
