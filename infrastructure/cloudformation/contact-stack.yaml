@@ -217,12 +217,9 @@ Resources:
                       Subject: 'New Portfolio Contact Message',
 
                       Message:
-`Name: ${body.name}
-
-Email: ${body.email}
-
-Message:
-${body.message}`
+                        'Name: ' + body.name +
+                        '\n\nEmail: ' + body.email +
+                        '\n\nMessage:\n' + body.message
 
                   }).promise();
 
