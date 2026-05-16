@@ -153,7 +153,7 @@ Resources:
 
       FunctionName: portfolio-contact-handler
 
-      Runtime: nodejs20.x
+      Runtime: nodejs18.x
 
       Handler: index.handler
 
