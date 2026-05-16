@@ -1,0 +1,393 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: >
+  Contact Form Infrastructure
+  API Gateway + Lambda + DynamoDB + SNS
+
+# =========================================================
+# PARAMETERS
+# =========================================================
+
+Parameters:
+
+  NotificationEmail:
+
+    Type: String
+
+    Description: Email address for contact notifications
+
+
+# =========================================================
+# RESOURCES
+# =========================================================
+
+Resources:
+
+  # =======================================================
+  # DYNAMODB TABLE
+  # =======================================================
+
+  ContactMessagesTable:
+
+    Type: AWS::DynamoDB::Table
+
+    Properties:
+
+      TableName: portfolio-contact-messages
+
+      BillingMode: PAY_PER_REQUEST
+
+      AttributeDefinitions:
+
+        - AttributeName: messageId
+          AttributeType: S
+
+      KeySchema:
+
+        - AttributeName: messageId
+          KeyType: HASH
+
+
+  # =======================================================
+  # SNS TOPIC
+  # =======================================================
+
+  ContactSNSTopic:
+
+    Type: AWS::SNS::Topic
+
+    Properties:
+
+      TopicName: portfolio-contact-topic
+
+
+  # =======================================================
+  # SNS EMAIL SUBSCRIPTION
+  # =======================================================
+
+  ContactEmailSubscription:
+
+    Type: AWS::SNS::Subscription
+
+    Properties:
+
+      TopicArn: !Ref ContactSNSTopic
+
+      Protocol: email
+
+      Endpoint: !Ref NotificationEmail
+
+
+  # =======================================================
+  # IAM ROLE FOR LAMBDA
+  # =======================================================
+
+  ContactLambdaRole:
+
+    Type: AWS::IAM::Role
+
+    Properties:
+
+      RoleName: portfolio-contact-lambda-role
+
+      AssumeRolePolicyDocument:
+
+        Version: '2012-10-17'
+
+        Statement:
+
+          - Effect: Allow
+
+            Principal:
+
+              Service:
+                - lambda.amazonaws.com
+
+            Action:
+              - sts:AssumeRole
+
+      ManagedPolicyArns:
+
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+      Policies:
+
+        - PolicyName: ContactLambdaPolicy
+
+          PolicyDocument:
+
+            Version: '2012-10-17'
+
+            Statement:
+
+              # DynamoDB Access
+
+              - Effect: Allow
+
+                Action:
+
+                  - dynamodb:PutItem
+
+                Resource: !GetAtt ContactMessagesTable.Arn
+
+              # SNS Publish Access
+
+              - Effect: Allow
+
+                Action:
+
+                  - sns:Publish
+
+                Resource: !Ref ContactSNSTopic
+
+
+  # =======================================================
+  # LAMBDA FUNCTION
+  # =======================================================
+
+  ContactLambdaFunction:
+
+    Type: AWS::Lambda::Function
+
+    Properties:
+
+      FunctionName: portfolio-contact-handler
+
+      Runtime: nodejs20.x
+
+      Handler: index.handler
+
+      Role: !GetAtt ContactLambdaRole.Arn
+
+      Timeout: 10
+
+      Environment:
+
+        Variables:
+
+          TABLE_NAME: !Ref ContactMessagesTable
+
+          SNS_TOPIC_ARN: !Ref ContactSNSTopic
+
+      Code:
+
+        ZipFile: |
+
+          const AWS = require('aws-sdk');
+
+          const dynamodb = new AWS.DynamoDB.DocumentClient();
+
+          const sns = new AWS.SNS();
+
+          exports.handler = async (event) => {
+
+              try {
+
+                  const body = JSON.parse(event.body);
+
+                  const item = {
+
+                      messageId: Date.now().toString(),
+
+                      name: body.name,
+
+                      email: body.email,
+
+                      message: body.message,
+
+                      createdAt: new Date().toISOString()
+                  };
+
+                  // Store in DynamoDB
+
+                  await dynamodb.put({
+
+                      TableName: process.env.TABLE_NAME,
+
+                      Item: item
+
+                  }).promise();
+
+                  // Send SNS Email
+
+                  await sns.publish({
+
+                      TopicArn: process.env.SNS_TOPIC_ARN,
+
+                      Subject: 'New Portfolio Contact Message',
+
+                      Message:
+`Name: ${body.name}
+
+Email: ${body.email}
+
+Message:
+${body.message}`
+
+                  }).promise();
+
+                  return {
+
+                      statusCode: 200,
+
+                      headers: {
+
+                          "Access-Control-Allow-Origin": "*",
+
+                          "Access-Control-Allow-Headers": "*",
+
+                          "Access-Control-Allow-Methods": "*"
+                      },
+
+                      body: JSON.stringify({
+
+                          message: 'Message sent successfully'
+                      })
+                  };
+
+              } catch (error) {
+
+                  console.error(error);
+
+                  return {
+
+                      statusCode: 500,
+
+                      headers: {
+
+                          "Access-Control-Allow-Origin": "*"
+                      },
+
+                      body: JSON.stringify({
+
+                          error: 'Failed to process request'
+                      })
+                  };
+              }
+          };
+
+
+  # =======================================================
+  # API GATEWAY
+  # =======================================================
+
+  ContactApi:
+
+    Type: AWS::ApiGatewayV2::Api
+
+    Properties:
+
+      Name: portfolio-contact-api
+
+      ProtocolType: HTTP
+
+      CorsConfiguration:
+
+        AllowOrigins:
+
+          - "*"
+
+        AllowMethods:
+
+          - POST
+
+        AllowHeaders:
+
+          - "*"
+
+
+  # =======================================================
+  # API INTEGRATION
+  # =======================================================
+
+  ContactApiIntegration:
+
+    Type: AWS::ApiGatewayV2::Integration
+
+    Properties:
+
+      ApiId: !Ref ContactApi
+
+      IntegrationType: AWS_PROXY
+
+      IntegrationUri: !GetAtt ContactLambdaFunction.Arn
+
+      PayloadFormatVersion: '2.0'
+
+
+  # =======================================================
+  # API ROUTE
+  # =======================================================
+
+  ContactApiRoute:
+
+    Type: AWS::ApiGatewayV2::Route
+
+    Properties:
+
+      ApiId: !Ref ContactApi
+
+      RouteKey: 'POST /contact'
+
+      Target: !Sub integrations/${ContactApiIntegration}
+
+
+  # =======================================================
+  # API STAGE
+  # =======================================================
+
+  ContactApiStage:
+
+    Type: AWS::ApiGatewayV2::Stage
+
+    Properties:
+
+      ApiId: !Ref ContactApi
+
+      StageName: prod
+
+      AutoDeploy: true
+
+
+  # =======================================================
+  # LAMBDA PERMISSION FOR API GATEWAY
+  # =======================================================
+
+  ContactLambdaPermission:
+
+    Type: AWS::Lambda::Permission
+
+    Properties:
+
+      Action: lambda:InvokeFunction
+
+      FunctionName: !Ref ContactLambdaFunction
+
+      Principal: apigateway.amazonaws.com
+
+
+# =========================================================
+# OUTPUTS
+# =========================================================
+
+Outputs:
+
+  ContactApiEndpoint:
+
+    Description: API Gateway Endpoint
+
+    Value: !Sub 'https://${ContactApi}.execute-api.${AWS::Region}.amazonaws.com/prod/contact'
+
+
+  DynamoDBTableName:
+
+    Description: DynamoDB Table Name
+
+    Value: !Ref ContactMessagesTable
+
+
+  SNSTopicArn:
+
+    Description: SNS Topic ARN
+
+    Value: !Ref ContactSNSTopic

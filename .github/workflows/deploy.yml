@@ -63,6 +63,20 @@ jobs:
           --stack-name aws-portfolio-infrastructure
 
       # ==========================================
+      # DEPLOY CONTACT STACK
+      # ==========================================
+
+      - name: Deploy Contact Stack
+        run: |
+
+          aws cloudformation deploy \
+          --template-file infrastructure/cloudformation/contact-stack.yaml \
+          --stack-name aws-portfolio-contact \
+          --parameter-overrides \
+            NotificationEmail=${{ secrets.NOTIFICATION_EMAIL }} \
+          --capabilities CAPABILITY_NAMED_IAM
+
+      # ==========================================
       # GET AWS ACCOUNT ID
       # ==========================================
 
