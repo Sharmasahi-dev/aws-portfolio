@@ -93,3 +93,53 @@ if (globeContainer) {
     world.controls().enableZoom = false;
 
 }
+/* CONTACT FORM */
+
+const contactForm = document.getElementById("contact-form");
+
+contactForm.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const data = {
+
+        name: document.getElementById("name").value,
+
+        email: document.getElementById("email").value,
+
+        message: document.getElementById("message").value
+    };
+
+    try {
+
+        const response = await fetch(
+            "YOUR_API_GATEWAY_ENDPOINT",
+            {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(data)
+            }
+        );
+
+        if (response.ok) {
+
+            alert("Message Sent Successfully!");
+
+            contactForm.reset();
+
+        } else {
+
+            alert("Failed to send message.");
+        }
+
+    } catch (error) {
+
+        alert("Something went wrong.");
+    }
+
+});

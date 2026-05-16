@@ -463,24 +463,67 @@ body {
 }
 
 /* =========================
-   ABOUT / CONTACT
+   CONTACT Us
 ========================= */
 
-.about-content p {
-    color: #ccc;
-    margin-bottom: 25px;
-    font-size: 18px;
-    max-width: 900px;
+.contact-wrapper {
+    max-width: 700px;
+    margin: auto;
 }
 
-.about-content a {
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+
+    width: 100%;
+    padding: 18px;
+
+    background: #111;
+
+    border: 1px solid #222;
+
+    border-radius: 12px;
+
     color: white;
-    text-decoration: none;
+
+    font-size: 16px;
 }
 
-.about-content a:hover {
-    color: #00bfff;
+.contact-form input:focus,
+.contact-form textarea:focus {
+
+    outline: none;
+
+    border-color: #6c63ff;
 }
+
+.submit-btn {
+
+    background: #6c63ff;
+
+    color: white;
+
+    border: none;
+
+    padding: 16px;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    transition: 0.3s;
+}
+
+.submit-btn:hover {
+
+    background: #574bdb;
 
 /* =========================
    FOOTER
