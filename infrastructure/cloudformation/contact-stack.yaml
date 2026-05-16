@@ -153,13 +153,15 @@ Resources:
 
       FunctionName: portfolio-contact-handler
 
-      Runtime: nodejs18.x
+      Runtime: nodejs22.x
 
       Handler: index.handler
 
       Role: !GetAtt ContactLambdaRole.Arn
 
       Timeout: 10
+
+      PackageType: Zip
 
       Environment:
 
@@ -173,21 +175,80 @@ Resources:
 
         ZipFile: |
 
-          const AWS = require('aws-sdk');
+          const {
+            DynamoDBClient
+          } = require("@aws-sdk/client-dynamodb");
 
-          const dynamodb = new AWS.DynamoDB.DocumentClient();
+          const {
+            DynamoDBDocumentClient,
+            PutCommand
+          } = require("@aws-sdk/lib-dynamodb");
 
-          const sns = new AWS.SNS();
+          const {
+            SNSClient,
+            PublishCommand
+          } = require("@aws-sdk/client-sns");
+
+          const dynamoClient =
+            new DynamoDBClient({});
+
+          const dynamodb =
+            DynamoDBDocumentClient.from(dynamoClient);
+
+          const sns =
+            new SNSClient({});
 
           exports.handler = async (event) => {
 
               try {
 
-                  const body = JSON.parse(event.body);
+                  console.log(
+                    "Received Event:",
+                    JSON.stringify(event)
+                  );
+
+                  const body =
+                    JSON.parse(event.body);
+
+                  // =========================
+                  // VALIDATION
+                  // =========================
+
+                  if (
+                    !body.name ||
+                    !body.email ||
+                    !body.message
+                  ) {
+
+                      return {
+
+                          statusCode: 400,
+
+                          headers: {
+
+                              "Access-Control-Allow-Origin": "*",
+
+                              "Access-Control-Allow-Headers": "*",
+
+                              "Access-Control-Allow-Methods": "*"
+                          },
+
+                          body: JSON.stringify({
+
+                              error:
+                                "All fields are required"
+                          })
+                      };
+                  }
+
+                  // =========================
+                  // CREATE ITEM
+                  // =========================
 
                   const item = {
 
-                      messageId: Date.now().toString(),
+                      messageId:
+                        Date.now().toString(),
 
                       name: body.name,
 
@@ -195,33 +256,57 @@ Resources:
 
                       message: body.message,
 
-                      createdAt: new Date().toISOString()
+                      createdAt:
+                        new Date().toISOString()
                   };
 
-                  // Store in DynamoDB
+                  // =========================
+                  // SAVE TO DYNAMODB
+                  // =========================
 
-                  await dynamodb.put({
+                  await dynamodb.send(
 
-                      TableName: process.env.TABLE_NAME,
+                      new PutCommand({
 
-                      Item: item
+                          TableName:
+                            process.env.TABLE_NAME,
 
-                  }).promise();
+                          Item: item
+                      })
+                  );
 
-                  // Send SNS Email
+                  console.log(
+                    "Saved To DynamoDB"
+                  );
 
-                  await sns.publish({
+                  // =========================
+                  // SEND SNS EMAIL
+                  // =========================
 
-                      TopicArn: process.env.SNS_TOPIC_ARN,
+                  await sns.send(
 
-                      Subject: 'New Portfolio Contact Message',
+                      new PublishCommand({
 
-                      Message:
-                        'Name: ' + body.name +
-                        '\n\nEmail: ' + body.email +
-                        '\n\nMessage:\n' + body.message
+                          TopicArn:
+                            process.env.SNS_TOPIC_ARN,
 
-                  }).promise();
+                          Subject:
+                            "New Portfolio Contact Message",
+
+                          Message:
+                            "Name: " + body.name +
+                            "\n\nEmail: " + body.email +
+                            "\n\nMessage:\n" + body.message
+                      })
+                  );
+
+                  console.log(
+                    "SNS Email Sent"
+                  );
+
+                  // =========================
+                  // SUCCESS RESPONSE
+                  // =========================
 
                   return {
 
@@ -238,13 +323,17 @@ Resources:
 
                       body: JSON.stringify({
 
-                          message: 'Message sent successfully'
+                          message:
+                            "Message sent successfully"
                       })
                   };
 
               } catch (error) {
 
-                  console.error(error);
+                  console.error(
+                    "Lambda Error:",
+                    error
+                  );
 
                   return {
 
@@ -252,12 +341,17 @@ Resources:
 
                       headers: {
 
-                          "Access-Control-Allow-Origin": "*"
+                          "Access-Control-Allow-Origin": "*",
+
+                          "Access-Control-Allow-Headers": "*",
+
+                          "Access-Control-Allow-Methods": "*"
                       },
 
                       body: JSON.stringify({
 
-                          error: 'Failed to process request'
+                          error:
+                            "Failed to process request"
                       })
                   };
               }
@@ -347,7 +441,7 @@ Resources:
 
 
   # =======================================================
-  # LAMBDA PERMISSION FOR API GATEWAY
+  # LAMBDA PERMISSION
   # =======================================================
 
   ContactLambdaPermission:
