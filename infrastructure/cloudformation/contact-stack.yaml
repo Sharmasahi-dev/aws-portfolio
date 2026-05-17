@@ -132,6 +132,18 @@ Resources:
 
                 Resource: !Ref ContactSNSTopic
 
+              # CloudWatch Logs
+
+              - Effect: Allow
+
+                Action:
+
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+
+                Resource: "*"
+
 
   # =======================================================
   # NODEJS22 PACKAGED LAMBDA
@@ -161,8 +173,14 @@ Resources:
       Role: !GetAtt ContactLambdaRole.Arn
 
       Timeout: 10
+      
+      MemorySize: 256
 
       PackageType: Zip
+
+      TracingConfig:
+
+        Mode: Active
 
       Environment:
 
