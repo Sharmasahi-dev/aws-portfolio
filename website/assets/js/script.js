@@ -113,7 +113,7 @@ contactForm.addEventListener("submit", async (e) => {
     try {
 
         const response = await fetch(
-            "https://dhs74pz87a.execute-api.ap-south-1.amazonaws.com/prod/contact",
+            "https://raixvhftd9.execute-api.ap-south-1.amazonaws.com/prod/contact",
             {
 
                 method: "POST",
