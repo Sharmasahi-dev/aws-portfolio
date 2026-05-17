@@ -502,47 +502,70 @@
 
     </section>
 
- <!-- CONTACT -->
-<section id="contact" class="section dark-section">
+ <!-- Contact Hero Banner -->
 
-    <div class="container">
+<section class="contact-banner">
 
-        <div class="section-title">
+    <div class="overlay"></div>
 
-            <p>CONTACT</p>
+    <div class="container banner-content">
 
-            <h2>
-                Let's Build Something Together
-            </h2>
+        <h1>Contact Us</h1>
 
-        </div>
+        <p>Home > Contact</p>
 
-        <div class="contact-wrapper">
+    </div>
 
-            <form id="contact-form" class="contact-form">
+</section>
+
+<!-- Contact Section -->
+
+<section id="contact" class="contact-section">
+
+    <div class="container contact-wrapper">
+
+        <!-- Left Form -->
+
+        <div class="contact-form-area">
+
+            <h2>Get In Touch</h2>
+
+            <p>
+                Let’s discuss AWS infrastructure,
+                cloud projects, DevOps automation
+                or freelance opportunities.
+            </p>
+
+            <form id="contact-form">
 
                 <input
                     type="text"
-                    id="name"
-                    placeholder="Your Full Name"
+                    name="name"
+                    placeholder="Your Name"
                     required
                 >
 
                 <input
                     type="email"
-                    id="email"
-                    placeholder="Your Email Address"
+                    name="email"
+                    placeholder="Your Email"
                     required
                 >
 
+                <input
+                    type="text"
+                    name="subject"
+                    placeholder="Subject"
+                >
+
                 <textarea
-                    id="message"
+                    name="message"
                     rows="6"
                     placeholder="Your Message"
                     required
                 ></textarea>
 
-                <button type="submit" class="submit-btn">
+                <button type="submit">
                     Send Message
                 </button>
 
@@ -550,7 +573,51 @@
 
         </div>
 
+        <!-- Right Info -->
+
+        <div class="contact-info">
+
+            <div class="info-card">
+
+                <div class="icon">✉️</div>
+
+                <h3>Email Address</h3>
+
+                <p>
+                    sahil.t.sharma2@gmail.com
+                </p>
+
+            </div>
+
+            <div class="info-card">
+
+                <div class="icon">📍</div>
+
+                <h3>Current Location</h3>
+
+                <p>
+                    Tokyo, Japan 🇯🇵
+                </p>
+
+            </div>
+
+        </div>
+
     </div>
+
+    <!-- Google Map -->
+
+    <div class="container map-area">
+
+        <iframe
+            src="https://maps.google.com/maps?q=Tokyo&t=&z=11&ie=UTF8&iwloc=&output=embed"
+            allowfullscreen=""
+            loading="lazy">
+        </iframe>
+
+    </div>
+
+</section>
 
 </section>
     <!-- FOOTER -->

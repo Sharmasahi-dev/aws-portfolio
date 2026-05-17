@@ -93,6 +93,18 @@ if (globeContainer) {
     world.controls().enableZoom = false;
 
 }
+/* MOBILE MENU */
+
+const menuToggle = document.getElementById("menu-toggle");
+
+const navLinks = document.querySelector(".nav-links");
+
+menuToggle.addEventListener("click", () => {
+
+    navLinks.classList.toggle("active");
+
+});
+
 /* CONTACT FORM */
 
 const contactForm = document.getElementById("contact-form");
@@ -101,6 +113,12 @@ contactForm.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
+    const submitButton = contactForm.querySelector("button");
+
+    submitButton.innerText = "Sending...";
+
+    submitButton.disabled = true;
+
     const data = {
 
         name: document.getElementById("name").value,
@@ -108,6 +126,7 @@ contactForm.addEventListener("submit", async (e) => {
         email: document.getElementById("email").value,
 
         message: document.getElementById("message").value
+
     };
 
     try {
@@ -115,7 +134,6 @@ contactForm.addEventListener("submit", async (e) => {
         const response = await fetch(
             "https://raixvhftd9.execute-api.ap-south-1.amazonaws.com/prod/contact",
             {
-
                 method: "POST",
 
                 headers: {
@@ -126,20 +144,36 @@ contactForm.addEventListener("submit", async (e) => {
             }
         );
 
+        const result = await response.json();
+
+        console.log("API Response:", result);
+
         if (response.ok) {
 
-            alert("Message Sent Successfully!");
+            alert("✅ Message Sent Successfully!");
 
             contactForm.reset();
 
         } else {
 
-            alert("Failed to send message.");
+            alert("❌ Failed to send message.");
+
+            console.error(result);
+
         }
 
     } catch (error) {
 
-        alert("Something went wrong.");
+        console.error("Error:", error);
+
+        alert("⚠️ Something went wrong.");
+
+    } finally {
+
+        submitButton.innerText = "Send Message";
+
+        submitButton.disabled = false;
+
     }
 
 });
