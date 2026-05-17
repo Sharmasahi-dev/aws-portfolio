@@ -463,67 +463,314 @@ body {
 }
 
 /* =========================
-   CONTACT Us
+   CONTACT BANNER
 ========================= */
 
-.contact-wrapper {
-    max-width: 700px;
-    margin: auto;
-}
+.contact-banner {
 
-.contact-form {
+    position: relative;
+
+    height: 420px;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,0.65),
+            rgba(0,0,0,0.75)
+        ),
+        url("../images/contact-us.jpg");
+
+    background-size: cover;
+    background-position: center;
+
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    align-items: center;
+
+    padding: 0 8%;
 }
 
-.contact-form input,
-.contact-form textarea {
+.banner-content {
+    position: relative;
+    z-index: 2;
+}
+
+.banner-content h1 {
+
+    font-size: 72px;
+
+    color: white;
+
+    margin-bottom: 15px;
+
+    font-weight: 800;
+}
+
+.banner-content p {
+
+    color: #ddd;
+
+    font-size: 22px;
+}
+
+/* =========================
+   CONTACT SECTION
+========================= */
+
+.contact-section {
+
+    background: #050505;
+
+    color: white;
+
+    padding: 100px 0;
+}
+
+.contact-wrapper {
+
+    display: grid;
+
+    grid-template-columns: 1.4fr 0.8fr;
+
+    gap: 50px;
+
+    align-items: start;
+}
+
+/* =========================
+   FORM AREA
+========================= */
+
+.contact-form-area h2 {
+
+    font-size: 52px;
+
+    margin-bottom: 20px;
+
+    color: white;
+}
+
+.contact-form-area p {
+
+    color: #bdbdbd;
+
+    margin-bottom: 40px;
+
+    line-height: 1.8;
+
+    font-size: 18px;
+}
+
+/* =========================
+   FORM
+========================= */
+
+#contact-form {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 22px;
+}
+
+#contact-form input,
+#contact-form textarea {
 
     width: 100%;
-    padding: 18px;
 
-    background: #111;
+    padding: 18px 22px;
 
-    border: 1px solid #222;
+    border-radius: 14px;
 
-    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+
+    background: rgba(255,255,255,0.04);
 
     color: white;
 
     font-size: 16px;
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
 
     outline: none;
 
-    border-color: #6c63ff;
+    transition: 0.3s ease;
 }
 
-.submit-btn {
+#contact-form input:focus,
+#contact-form textarea:focus {
 
-    background: #6c63ff;
+    border-color: #ff4d00;
+
+    background: rgba(255,255,255,0.06);
+}
+
+#contact-form textarea {
+
+    min-height: 180px;
+
+    resize: vertical;
+}
+
+#contact-form button {
+
+    background: linear-gradient(
+        135deg,
+        #ff4d00,
+        #ff7b00
+    );
 
     color: white;
 
     border: none;
 
-    padding: 16px;
+    padding: 18px;
 
-    border-radius: 12px;
+    border-radius: 14px;
+
+    font-size: 18px;
+
+    font-weight: 600;
 
     cursor: pointer;
 
-    font-size: 16px;
-
-    transition: 0.3s;
+    transition: 0.3s ease;
 }
 
-.submit-btn:hover {
+#contact-form button:hover {
 
-    background: #574bdb;
+    transform: translateY(-3px);
+
+    opacity: 0.95;
+}
+
+/* =========================
+   CONTACT INFO
+========================= */
+
+.contact-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 30px;
+}
+
+.info-card {
+
+    background: rgba(255,255,255,0.04);
+
+    border: 1px solid rgba(255,255,255,0.06);
+
+    backdrop-filter: blur(12px);
+
+    padding: 45px 30px;
+
+    border-radius: 24px;
+
+    text-align: center;
+
+    transition: 0.3s ease;
+}
+
+.info-card:hover {
+
+    transform: translateY(-5px);
+
+    border-color: rgba(255,255,255,0.15);
+}
+
+.icon {
+
+    font-size: 44px;
+
+    margin-bottom: 18px;
+}
+
+.info-card h3 {
+
+    font-size: 30px;
+
+    margin-bottom: 14px;
+
+    color: white;
+}
+
+.info-card p {
+
+    color: #d0d0d0;
+
+    font-size: 18px;
+
+    line-height: 1.7;
+}
+
+/* =========================
+   MAP
+========================= */
+
+.map-area {
+
+    margin-top: 80px;
+}
+
+.map-area iframe {
+
+    width: 100%;
+
+    height: 450px;
+
+    border: none;
+
+    border-radius: 24px;
+
+    overflow: hidden;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 992px) {
+
+    .contact-wrapper {
+
+        grid-template-columns: 1fr;
+    }
+
+    .banner-content h1 {
+
+        font-size: 52px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .contact-banner {
+
+        height: 320px;
+
+        padding: 0 6%;
+    }
+
+    .banner-content h1 {
+
+        font-size: 42px;
+    }
+
+    .banner-content p {
+
+        font-size: 18px;
+    }
+
+    .contact-form-area h2 {
+
+        font-size: 40px;
+    }
+
+    .map-area iframe {
+
+        height: 320px;
+    }
+}
 
 /* =========================
    FOOTER
