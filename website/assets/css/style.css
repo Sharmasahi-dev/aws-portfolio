@@ -846,3 +846,330 @@ footer {
         height: 280px;
     }
 }
+
+/* =========================================
+   LANGUAGE SWITCHER AND RESUME BUTTONS
+========================================= */
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.language-btn,
+.resume-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 999px;
+    color: inherit;
+    background: transparent;
+    text-decoration: none;
+    cursor: pointer;
+    font: inherit;
+    white-space: nowrap;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.language-btn:hover,
+.resume-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-1px);
+}
+
+.resume-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.resume-btn.primary {
+    background: #fff;
+    color: #111827;
+    border-color: #fff;
+}
+
+.language-note {
+    font-size: 0.85rem;
+    opacity: 0.75;
+    margin-top: 8px;
+}
+
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.social-links a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+
+/* =========================================
+   WORK EXPERIENCE LAYOUT
+========================================= */
+
+.experience-showcase .section-title {
+    margin-bottom: 28px;
+}
+
+.experience-layout {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.78fr) minmax(0, 1.62fr);
+    gap: 20px;
+    align-items: stretch;
+}
+
+.experience-feature,
+.experience-timeline {
+    background: #0d0d0f;
+    border: 1px solid #25252b;
+    border-radius: 12px;
+    min-width: 0;
+}
+
+.experience-feature {
+    min-height: 430px;
+    padding: 38px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.experience-feature-icon {
+    width: 78px;
+    height: 78px;
+    border-radius: 18px;
+    display: grid;
+    place-items: center;
+    background: #1b1b20;
+    font-size: 36px;
+    margin-bottom: 18px;
+}
+
+.experience-feature-label {
+    color: #9ca3af;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 0 0 10px;
+}
+
+.experience-feature h3 {
+    font-size: 22px;
+    margin: 0 0 8px;
+}
+
+.experience-feature-company {
+    color: #c1c1c8;
+    margin: 0 0 5px;
+}
+
+.experience-feature-date {
+    color: #9b9ba5;
+    font-size: 13px;
+    margin: 0 0 22px;
+}
+
+.experience-feature-summary {
+    max-width: 390px;
+    color: #b9b9c1;
+    line-height: 1.7;
+}
+
+.experience-feature-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 20px;
+}
+
+.experience-feature-tags span {
+    border: 1px solid #34343d;
+    border-radius: 999px;
+    padding: 5px 10px;
+    color: #d4d4dc;
+    font-size: 12px;
+}
+
+.experience-timeline {
+    padding: 34px 34px 28px;
+}
+
+.experience-timeline-item {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 22px;
+    position: relative;
+    padding-bottom: 28px;
+}
+
+.experience-timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+.experience-timeline-item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 31px;
+    top: 66px;
+    bottom: 3px;
+    width: 1px;
+    background: #282830;
+}
+
+.experience-timeline-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 22px;
+    background: #1a1a1e;
+    display: grid;
+    place-items: center;
+    font-size: 28px;
+    z-index: 1;
+}
+
+.experience-timeline-content {
+    min-width: 0;
+    padding-top: 6px;
+}
+
+.experience-timeline-content h3 {
+    font-size: 16px;
+    line-height: 1.4;
+    margin: 0 0 2px;
+}
+
+.experience-timeline-meta {
+    color: #b8b8c1;
+    font-size: 13px;
+    margin: 0 0 16px;
+}
+
+.experience-timeline-content > p:last-child {
+    color: #b8b8c1;
+    line-height: 1.65;
+    margin: 0;
+}
+
+
+/* =========================================
+   CERTIFICATION LINKS
+========================================= */
+
+.cert-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cert-card a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+
+/* =========================================
+   PROJECT LINKS AND INTRO TEXT
+========================================= */
+
+.project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.project-links a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.section-intro {
+    max-width: 850px;
+    margin: 0 0 28px;
+}
+
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 900px) {
+    .experience-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .experience-feature {
+        min-height: 300px;
+    }
+
+    .experience-timeline {
+        padding: 26px 22px;
+    }
+
+    .nav-actions {
+        gap: 6px;
+    }
+
+    .language-btn,
+    .resume-btn {
+        padding: 8px 11px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-container {
+        flex-wrap: wrap;
+    }
+
+    .nav-actions {
+        margin-left: auto;
+    }
+
+    .resume-actions {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 520px) {
+    .experience-timeline-item {
+        grid-template-columns: 48px minmax(0, 1fr);
+        gap: 14px;
+    }
+
+    .experience-timeline-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 16px;
+        font-size: 23px;
+    }
+
+    .experience-timeline-item:not(:last-child)::after {
+        left: 23px;
+        top: 51px;
+    }
+
+    .experience-timeline-content {
+        padding-top: 1px;
+    }
+
+    .experience-timeline-meta {
+        margin-bottom: 10px;
+    }
+}
