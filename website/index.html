@@ -9,7 +9,8 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Sahil Sharma | AWS Cloud Engineer</title>
+    <title>Sahil Sharma | AWS Cloud Engineer &amp; Solutions Architect</title>
+    <meta name="description" content="Sahil Sharma — AWS Cloud Engineer and Solutions Architect specializing in AWS infrastructure, Terraform, Datadog, cloud security and CI/CD automation.">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
@@ -32,27 +33,23 @@
             </div>
 
             <!-- Navigation -->
-            <nav>
-
+            <nav aria-label="Main navigation">
                 <ul class="nav-links">
-
-                    <li><a href="#home">Home</a></li>
-
-                    <li><a href="#about-section">About</a></li>
-
-                    <li><a href="#experience">Experience</a></li>
-
-                    <li><a href="#projects">Projects</a></li>
-
-                    <li><a href="#skills">Skills</a></li>
-
-                    <li><a href="#certifications">Certifications</a></li>
-
-                    <li><a href="#contact">Contact</a></li>
-
+                    <li><a href="#home" data-en="Home" data-ja="ホーム">Home</a></li>
+                    <li><a href="#about-section" data-en="About" data-ja="プロフィール">About</a></li>
+                    <li><a href="#experience" data-en="Experience" data-ja="職務経歴">Experience</a></li>
+                    <li><a href="#projects" data-en="Projects" data-ja="プロジェクト">Projects</a></li>
+                    <li><a href="#skills" data-en="Skills" data-ja="スキル">Skills</a></li>
+                    <li><a href="#certifications" data-en="Certifications" data-ja="資格">Certifications</a></li>
+                    <li><a href="#contact" data-en="Contact" data-ja="お問い合わせ">Contact</a></li>
                 </ul>
-
             </nav>
+
+            <div class="nav-actions">
+                <button class="language-btn" id="language-toggle" type="button">日本語</button>
+                <div class="menu-toggle" id="menu-toggle" role="button" tabindex="0"
+                     aria-label="Open navigation menu" aria-expanded="false">☰</div>
+            </div>
 
             <!-- Mobile Menu -->
             <div class="menu-toggle" id="menu-toggle">
@@ -114,10 +111,9 @@
                     Hi, I'm Sahil Sharma
                 </h2>
 
-                <p>
-                    AWS Cloud Engineer with experience across Japan and India,
-                    focused on scalable cloud infrastructure, monitoring,
-                    security, automation and enterprise cloud operations.
+                <p data-en="Cloud Engineer and Solutions Architect supporting enterprise AWS environments in Japan. My work includes IAM and access management, security posture improvement, vulnerability remediation, monitoring, cost optimization and infrastructure automation."
+                   data-ja="日本でエンタープライズ向けAWS環境を支援するクラウドエンジニア／ソリューションアーキテクトです。IAM管理、セキュリティ強化、脆弱性対応、監視、コスト最適化、インフラ自動化に取り組んでいます。">
+                    Cloud Engineer and Solutions Architect supporting enterprise AWS environments in Japan. My work includes IAM and access management, security posture improvement, vulnerability remediation, monitoring, cost optimization and infrastructure automation.
                 </p>
 
             </div>
@@ -150,14 +146,11 @@
             <!-- 3D EARTH -->
                 <div id="globeViz"></div>
 
-                <h2>
-                    Available for Collaboration
-                </h2>
+                <h2 data-en="Available for Collaboration" data-ja="協業のご相談">Available for Collaboration</h2>
 
-                <p>
-                    Open for AWS Infrastructure,
-                    Cloud Engineering, DevOps,
-                    Monitoring and Cloud Security projects.
+                <p data-en="Open to opportunities in AWS infrastructure, cloud engineering, DevOps automation, monitoring and cloud security."
+                   data-ja="AWSインフラ、クラウドエンジニアリング、DevOps自動化、監視、クラウドセキュリティ分野での機会・協業を歓迎します。">
+                    Open to opportunities in AWS infrastructure, cloud engineering, DevOps automation, monitoring and cloud security.
                 </p>
 
                 <a href="#contact" class="contact-btn">
@@ -175,177 +168,81 @@
     </section>
 
     <!-- EXPERIENCE -->
-    <section id="experience" class="section dark-section">
-
+    <section id="experience" class="section dark-section experience-showcase">
         <div class="container">
-
             <div class="section-title">
-
-                <p>CAREER JOURNEY</p>
-
-                <h2>
-                    Work Experience
-                </h2>
-
+                <p data-en="CAREER JOURNEY" data-ja="キャリア">CAREER JOURNEY</p>
+                <h2 data-en="Work Experience" data-ja="職務経歴">Work Experience</h2>
             </div>
 
-            <div class="cards">
-
-                <!-- UD TRUCKS -->
-                <div class="card">
-
-                    <div class="card-header">
-
-                        <div>
-
-                            <h3>
-                                Cloud Engineer
-                            </h3>
-
-                            <span>
-                                UD Trucks (Consultant - TEKsystems)
-                            </span>
-
-                        </div>
-
-                        <small>
-                            Feb 2025 - Present
-                        </small>
-
+            <div class="experience-layout">
+                <article class="experience-feature">
+                    <div class="experience-feature-icon" aria-hidden="true">☁️</div>
+                    <p class="experience-feature-label" data-en="CURRENT ROLE" data-ja="現在の職務">CURRENT ROLE</p>
+                    <h3 data-en="Cloud Engineer" data-ja="クラウドエンジニア">Cloud Engineer</h3>
+                    <p class="experience-feature-company">UD Trucks · TEKsystems</p>
+                    <p class="experience-feature-date" data-en="February 2025 – Present" data-ja="2025年2月 – 現在">February 2025 – Present</p>
+                    <p class="experience-feature-summary"
+                       data-en="Supporting enterprise AWS environments through cloud security, IAM administration, Datadog monitoring, Terraform automation and cost optimization."
+                       data-ja="クラウドセキュリティ、IAM管理、Datadog監視、Terraformによる自動化、コスト最適化を通じて、エンタープライズ向けAWS環境を支援しています。">
+                        Supporting enterprise AWS environments through cloud security, IAM administration, Datadog monitoring, Terraform automation and cost optimization.
+                    </p>
+                    <div class="experience-feature-tags">
+                        <span>AWS</span><span>Terraform</span><span>Datadog</span><span>Security</span>
                     </div>
+                </article>
 
-                    <ul>
-
-                        <li>
-                            Administer AWS accounts, IAM roles and access policies following least privilege principles.
-                        </li>
-
-                        <li>
-                            Configured AWS Security Hub, Inspector and Trusted Advisor to improve security posture.
-                        </li>
-
-                        <li>
-                            Conducted AWS Proof of Concepts (PoCs) for new cloud technologies and services.
-                        </li>
-
-                        <li>
-                            Implemented cloud cost optimization strategies reducing unnecessary AWS spend.
-                        </li>
-
-                        <li>
-                            Created Datadog dashboards and monitors for infrastructure and applications.
-                        </li>
-
-                        <li>
-                            Automated Datadog monitor creation using Terraform integrated with CI/CD pipelines.
-                        </li>
-
-                        <li>
-                            Supported cloud deployments and troubleshooting across enterprise environments.
-                        </li>
-
-                    </ul>
-
-                </div>
-
-                <!-- TENCHOPRO -->
-                <div class="card">
-
-                    <div class="card-header">
-
-                        <div>
-
-                            <h3>
-                                Cloud Engineer
-                            </h3>
-
-                            <span>
-                                TenchoPro Engineering
-                            </span>
-
+                <div class="experience-timeline">
+                    <article class="experience-timeline-item">
+                        <div class="experience-timeline-icon" aria-hidden="true">☁️</div>
+                        <div class="experience-timeline-content">
+                            <h3 data-en="Cloud Engineer" data-ja="クラウドエンジニア">Cloud Engineer</h3>
+                            <p class="experience-timeline-meta">UD Trucks (Consultant – TEKsystems) — <span data-en="2025 – Present" data-ja="2025年 – 現在">2025 – Present</span></p>
+                            <p data-en="Manage AWS accounts and IAM permissions, support Inspector, Security Hub and Trusted Advisor, create Datadog monitors and dashboards, automate monitor management with Terraform and CI/CD, and identify cost-optimization opportunities."
+                               data-ja="AWSアカウントとIAM権限の管理、Inspector・Security Hub・Trusted Advisorを用いたセキュリティ対応、Datadogモニターとダッシュボードの作成、TerraformとCI/CDによる監視設定の自動化、コスト最適化を担当。">
+                                Manage AWS accounts and IAM permissions, support Inspector, Security Hub and Trusted Advisor, create Datadog monitors and dashboards, automate monitor management with Terraform and CI/CD, and identify cost-optimization opportunities.
+                            </p>
                         </div>
+                    </article>
 
-                        <small>
-                            Jul 2023 - Feb 2025
-                        </small>
-
-                    </div>
-
-                    <ul>
-
-                        <li>
-                            Built secure network architectures with VPCs, subnets, route tables and security groups.
-                        </li>
-
-                        <li>
-                            Implemented AWS Systems Manager for patch automation and compliance reporting.
-                        </li>
-
-                        <li>
-                            Automated infrastructure provisioning using AWS CloudFormation.
-                        </li>
-
-                        <li>
-                            Supported DevOps and operational teams through infrastructure monitoring and troubleshooting.
-                        </li>
-
-                    </ul>
-
-                </div>
-
-                <!-- NEC -->
-                <div class="card">
-
-                    <div class="card-header">
-
-                        <div>
-
-                            <h3>
-                                Executive (Japan Communication & Consulting Services)
-                            </h3>
-
-                            <span>
-                                NEC Corporation India Pvt. Ltd.
-                            </span>
-
+                    <article class="experience-timeline-item">
+                        <div class="experience-timeline-icon" aria-hidden="true">🛠️</div>
+                        <div class="experience-timeline-content">
+                            <h3 data-en="Cloud Engineer" data-ja="クラウドエンジニア">Cloud Engineer</h3>
+                            <p class="experience-timeline-meta">TenchoPro Engineering, Tokyo — <span data-en="2023 – 2025" data-ja="2023年 – 2025年">2023 – 2025</span></p>
+                            <p data-en="Designed highly available AWS infrastructure across multiple Availability Zones, maintained VPC networking, automated provisioning with CloudFormation, and configured Systems Manager patching and compliance reporting."
+                               data-ja="複数のアベイラビリティゾーンにまたがる高可用性AWS基盤を設計し、VPCネットワークを管理。CloudFormationによる構築自動化、Systems Managerによるパッチ適用とコンプライアンス報告を実施。">
+                                Designed highly available AWS infrastructure across multiple Availability Zones, maintained VPC networking, automated provisioning with CloudFormation, and configured Systems Manager patching and compliance reporting.
+                            </p>
                         </div>
+                    </article>
 
-                        <small>
-                            May 2022 - Jun 2023
-                        </small>
+                    <article class="experience-timeline-item">
+                        <div class="experience-timeline-icon" aria-hidden="true">🔎</div>
+                        <div class="experience-timeline-content">
+                            <h3 data-en="Executive — Japan Communication &amp; Consulting Services" data-ja="エグゼクティブ — 日本向けコミュニケーション・コンサルティング">Executive — Japan Communication &amp; Consulting Services</h3>
+                            <p class="experience-timeline-meta">NEC Corporation India — <span data-en="2022 – 2023" data-ja="2022年 – 2023年">2022 – 2023</span></p>
+                            <p data-en="Handled AWS incident management, root-cause analysis and troubleshooting, and coordinated technical communication between Japan and India teams."
+                               data-ja="AWSのインシデント管理、根本原因分析、障害対応を担当し、日本とインドのチーム間の技術連携を行いました。">
+                                Handled AWS incident management, root-cause analysis and troubleshooting, and coordinated technical communication between Japan and India teams.
+                            </p>
+                        </div>
+                    </article>
 
-                    </div>
-
-                    <ul>
-
-                        <li>
-                            Analyzed customer requirements and translated business needs into technical specifications.
-                        </li>
-
-                        <li>
-                            Prepared unit test cases and reviewed software quality deliverables.
-                        </li>
-
-                        <li>
-                            Worked directly with Japanese clients and offshore development teams.
-                        </li>
-
-                        <li>
-                            Managed project documentation and communication activities.
-                        </li>
-
-                        <li>
-                            Used Git for version control and software lifecycle management.
-                        </li>
-
-                    </ul>
-
+                    <article class="experience-timeline-item">
+                        <div class="experience-timeline-icon" aria-hidden="true">💻</div>
+                        <div class="experience-timeline-content">
+                            <h3 data-en="Assistant Bilingual Developer" data-ja="バイリンガル開発アシスタント">Assistant Bilingual Developer</h3>
+                            <p class="experience-timeline-meta">Fujitsu Consulting India — <span data-en="2019 – 2022" data-ja="2019年 – 2022年">2019 – 2022</span></p>
+                            <p data-en="Analyzed customer requirements, prepared unit test cases, reviewed software quality, maintained project documentation and communicated with Japanese clients."
+                               data-ja="顧客要件の分析、単体テストケースの作成、ソフトウェア品質の確認、プロジェクト文書の管理、日本の顧客との連絡を担当しました。">
+                                Analyzed customer requirements, prepared unit test cases, reviewed software quality, maintained project documentation and communicated with Japanese clients.
+                            </p>
+                        </div>
+                    </article>
                 </div>
-
             </div>
-
         </div>
-
     </section>
 
     <!-- PROJECTS -->
@@ -355,9 +252,9 @@
 
             <div class="section-title">
 
-                <p>PERSONAL PROJECTS</p>
+                <p data-en="PERSONAL PROJECTS" data-ja="個人プロジェクト">PERSONAL PROJECTS</p>
 
-                <h2>
+                <h2 data-en="AWS Cloud Portfolio with CI/CD" data-ja="CI/CDを備えたAWSクラウドポートフォリオ">
                     AWS Cloud Portfolio with CI/CD
                 </h2>
 
@@ -392,11 +289,29 @@
                     </li>
 
                     <li>
-                        Domain: www.sahilcloudsolutions.com
+                        <span data-en="Domain: www.sahilcloudsolutions.com" data-ja="ドメイン：www.sahilcloudsolutions.com">Domain: www.sahilcloudsolutions.com</span>
                     </li>
 
                 </ul>
 
+            </div>
+
+            <div class="card" style="margin-top: 20px;">
+                <h3 data-en="Terraform-Based Datadog Monitor Automation" data-ja="TerraformによるDatadogモニター自動化">
+                    Terraform-Based Datadog Monitor Automation
+                </h3>
+                <p data-en="Built reusable Terraform modules and CI/CD workflows to manage Datadog monitors consistently across AWS services."
+                   data-ja="AWSサービス全体のDatadogモニターを一貫して管理するため、再利用可能なTerraformモジュールとCI/CDワークフローを構築しました。">
+                    Built reusable Terraform modules and CI/CD workflows to manage Datadog monitors consistently across AWS services.
+                </p>
+                <ul>
+                    <li data-en="Used configurable monitor flags and threshold variables." data-ja="モニターの有効化フラグと閾値変数を設定可能にしました。">Used configurable monitor flags and threshold variables.</li>
+                    <li data-en="Covered services such as EC2, Lambda, S3, DynamoDB, SNS and SQS." data-ja="EC2、Lambda、S3、DynamoDB、SNS、SQSなどのサービスに対応しました。">Covered services such as EC2, Lambda, S3, DynamoDB, SNS and SQS.</li>
+                </ul>
+                <div class="project-links">
+                    <a href="https://github.com/Sharmasahi-dev" target="_blank" rel="noopener noreferrer"
+                       data-en="View GitHub profile ↗" data-ja="GitHubプロフィールを見る ↗">View GitHub profile ↗</a>
+                </div>
             </div>
 
         </div>
@@ -410,11 +325,9 @@
 
             <div class="section-title">
 
-                <p>EXPERTISE</p>
+                <p data-en="EXPERTISE" data-ja="専門スキル">EXPERTISE</p>
 
-                <h2>
-                    Technical Skills
-                </h2>
+                <h2 data-en="Technical Skills" data-ja="技術スキル">Technical Skills</h2>
 
             </div>
 
@@ -452,19 +365,43 @@
 
             <div class="section-title">
 
-                <p>ACHIEVEMENTS</p>
+                <p data-en="CREDENTIALS" data-ja="資格・認定">CREDENTIALS</p>
 
-                <h2>
-                    Certifications
-                </h2>
+                <h2 data-en="Certifications" data-ja="資格">Certifications</h2>
 
             </div>
 
             <div class="cert-grid">
-
                 <div class="cert-card">
-                    AWS Certified Solutions Architect Associate
+                    <h3>AWS Certified Solutions Architect – Professional</h3>
+                    <a href="https://aws.amazon.com/certification/certified-solutions-architect-professional/" target="_blank" rel="noopener noreferrer"
+                       data-en="Official certification page ↗" data-ja="公式資格ページ ↗">Official certification page ↗</a>
                 </div>
+                <div class="cert-card">
+                    <h3>AWS Certified Solutions Architect – Associate</h3>
+                    <a href="https://aws.amazon.com/certification/certified-solutions-architect-associate/" target="_blank" rel="noopener noreferrer"
+                       data-en="Official certification page ↗" data-ja="公式資格ページ ↗">Official certification page ↗</a>
+                </div>
+                <div class="cert-card">
+                    <h3>HashiCorp Certified: Terraform Associate</h3>
+                    <a href="https://developer.hashicorp.com/certifications/infrastructure-automation" target="_blank" rel="noopener noreferrer"
+                       data-en="Official certification page ↗" data-ja="公式資格ページ ↗">Official certification page ↗</a>
+                </div>
+                <div class="cert-card">
+                    <h3>AWS Certified Cloud Practitioner</h3>
+                    <a href="https://aws.amazon.com/certification/certified-cloud-practitioner/" target="_blank" rel="noopener noreferrer"
+                       data-en="Official certification page ↗" data-ja="公式資格ページ ↗">Official certification page ↗</a>
+                </div>
+                <div class="cert-card">
+                    <h3>Japanese-Language Proficiency Test (JLPT) N2</h3>
+                    <a href="https://www.jlpt.jp/e/" target="_blank" rel="noopener noreferrer"
+                       data-en="Official JLPT website ↗" data-ja="JLPT公式サイト ↗">Official JLPT website ↗</a>
+                </div>
+                <div class="cert-card">
+                    <h3>Programming, Data Structures &amp; Algorithms Using Python</h3>
+                    <p data-en="Course completed in 2021" data-ja="2021年に修了したコース">Course completed in 2021</p>
+                </div>
+            </div>
 
                 <div class="cert-card">
                     AWS Certified Cloud Practitioner
@@ -500,21 +437,16 @@
 
         <div class="contact-left">
 
-            <p class="contact-small">
-                CONTACT ME
-            </p>
+            <p class="contact-small" data-en="CONTACT ME" data-ja="お問い合わせ">CONTACT ME</p>
 
-            <h2>
-                Let's Build
-                Cloud Solutions Together
+            <h2 data-en="Let's Build Cloud Solutions Together" data-ja="一緒にクラウドソリューションを構築しましょう">
+                Let's Build Cloud Solutions Together
             </h2>
 
-            <p class="contact-description">
-
-                AWS Cloud Engineer specializing in
-                scalable infrastructure, DevOps automation,
-                cloud security and monitoring solutions.
-
+            <p class="contact-description"
+               data-en="AWS Cloud Engineer specializing in scalable infrastructure, DevOps automation, cloud security and monitoring solutions."
+               data-ja="スケーラブルなインフラ、DevOps自動化、クラウドセキュリティ、監視ソリューションを専門とするAWSクラウドエンジニアです。">
+                AWS Cloud Engineer specializing in scalable infrastructure, DevOps automation, cloud security and monitoring solutions.
             </p>
 
         </div>
@@ -531,7 +463,7 @@
 
                 <div>
 
-                    <h3>Email Address</h3>
+                    <h3 data-en="Email Address" data-ja="メールアドレス">Email Address</h3>
 
                     <p>
                         sahil.t.sharma2@gmail.com
@@ -549,11 +481,9 @@
 
                 <div>
 
-                    <h3>Current Location</h3>
+                    <h3 data-en="Current Location" data-ja="所在地">Current Location</h3>
 
-                    <p>
-                        Tokyo, Japan 🇯🇵
-                    </p>
+                    <p data-en="Saitama, Japan 🇯🇵" data-ja="日本・埼玉県 🇯🇵">Saitama, Japan 🇯🇵</p>
 
                 </div>
 
@@ -566,26 +496,24 @@
                 <input
                     type="text"
                     id="name"
-                    placeholder="Your Name"
+                    placeholder="Your Name" data-placeholder-en="Your Name" data-placeholder-ja="お名前"
                     required
                 >
 
                 <input
                     type="email"
                     id="email"
-                    placeholder="Your Email"
+                    placeholder="Your Email" data-placeholder-en="Your Email" data-placeholder-ja="メールアドレス"
                     required
                 >
 
                 <textarea
                     id="message"
-                    placeholder="Your Message"
+                    placeholder="Your Message" data-placeholder-en="Your Message" data-placeholder-ja="メッセージ"
                     required
                 ></textarea>
 
-                <button type="submit">
-                    Send Message
-                </button>
+                <button type="submit" data-en="Send Message" data-ja="メッセージを送信">Send Message</button>
 
             </form>
 
@@ -598,13 +526,85 @@
     <footer>
 
         <p>
-            © 2026 Sahil Sharma • AWS Cloud Engineer & Solutions Architect
+            © <span id="year">2026</span> Sahil Sharma •
+            <span data-en="AWS Cloud Engineer &amp; Solutions Architect" data-ja="AWSクラウドエンジニア・ソリューションアーキテクト">AWS Cloud Engineer &amp; Solutions Architect</span>
         </p>
 
     </footer>
 
-    <!-- JS -->
+    <!-- Existing site JavaScript -->
     <script src="assets/js/script.js"></script>
+
+    <script>
+        (function () {
+            const languageButton = document.getElementById("language-toggle");
+            const menuToggle = document.getElementById("menu-toggle");
+            const navLinks = document.querySelector(".nav-links");
+            const html = document.documentElement;
+
+            function setLanguage(language) {
+                html.lang = language;
+
+                document.querySelectorAll("[data-en][data-ja]").forEach(function (element) {
+                    const text = element.getAttribute(language === "ja" ? "data-ja" : "data-en");
+                    if (text !== null) element.innerHTML = text;
+                });
+
+                document.querySelectorAll("[data-placeholder-en][data-placeholder-ja]").forEach(function (element) {
+                    element.placeholder = element.getAttribute(
+                        language === "ja" ? "data-placeholder-ja" : "data-placeholder-en"
+                    );
+                });
+
+                languageButton.textContent = language === "ja" ? "English" : "日本語";
+                document.title = language === "ja"
+                    ? "Sahil Sharma | AWSクラウドエンジニア・ソリューションアーキテクト"
+                    : "Sahil Sharma | AWS Cloud Engineer & Solutions Architect";
+
+                try {
+                    localStorage.setItem("portfolio-language", language);
+                } catch (error) {}
+            }
+
+            languageButton.addEventListener("click", function () {
+                setLanguage(html.lang === "ja" ? "en" : "ja");
+            });
+
+            if (menuToggle && navLinks) {
+                function toggleMenu() {
+                    navLinks.classList.toggle("active");
+                    menuToggle.setAttribute(
+                        "aria-expanded",
+                        navLinks.classList.contains("active") ? "true" : "false"
+                    );
+                }
+
+                menuToggle.addEventListener("click", toggleMenu);
+                menuToggle.addEventListener("keydown", function (event) {
+                    if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        toggleMenu();
+                    }
+                });
+
+                navLinks.querySelectorAll("a").forEach(function (link) {
+                    link.addEventListener("click", function () {
+                        navLinks.classList.remove("active");
+                        menuToggle.setAttribute("aria-expanded", "false");
+                    });
+                });
+            }
+
+            const yearElement = document.getElementById("year");
+            if (yearElement) yearElement.textContent = new Date().getFullYear();
+
+            let savedLanguage = "en";
+            try {
+                savedLanguage = localStorage.getItem("portfolio-language") || "en";
+            } catch (error) {}
+            setLanguage(savedLanguage === "ja" ? "ja" : "en");
+        })();
+    </script>
 
 </body>
 
