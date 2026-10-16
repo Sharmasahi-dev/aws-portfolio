@@ -433,33 +433,218 @@ body {
     border-color: #444;
 }
 
-/* =========================
-   CERTIFICATIONS
-========================= */
+/* ========================================
+   CERTIFICATIONS SECTION
+======================================== */
 
-.cert-grid {
+.certification-showcase .section-title {
+    margin-bottom: 32px;
+}
+
+.certification-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
 }
 
-.cert-card {
-    background: rgba(255,255,255,0.02);
-
-    border: 1px solid #222;
-
-    padding: 40px;
-
-    border-radius: 24px;
-
-    text-align: center;
-
-    transition: 0.3s ease;
+.certification-item {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    min-width: 0;
+    min-height: 132px;
+    padding: 28px 34px;
+    background: #0e0e10;
+    border: 1px solid #18181c;
+    border-radius: 12px;
+    color: #e5e5eb;
+    text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease,
+                transform 0.2s ease;
 }
 
-.cert-card:hover {
-    transform: translateY(-5px);
-    border-color: #444;
+.certification-item:hover {
+    background: #141417;
+    border-color: #38383f;
+    transform: translateY(-3px);
+}
+
+.certification-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 72px;
+    width: 72px;
+    height: 72px;
+    border-radius: 17px;
+    background: #1b1b20;
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.certification-icon-aws {
+    color: #ffad42;
+    font-size: 23px;
+    letter-spacing: -1px;
+}
+
+.certification-icon-hashicorp {
+    color: #b6a1ff;
+    font-size: 32px;
+}
+
+.certification-copy {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.certification-copy strong {
+    color: #e8e8ed;
+    font-size: 19px;
+    font-weight: 750;
+    line-height: 1.4;
+}
+
+.certification-copy small {
+    color: #aaaab4;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.certification-arrow {
+    flex-shrink: 0;
+    margin-left: auto;
+    color: #ff9b70;
+    font-size: 30px;
+    line-height: 1;
+    transition: transform 0.2s ease;
+}
+
+.certification-item:hover .certification-arrow {
+    transform: translate(3px, -3px);
+}
+
+/* Certificate archive */
+
+.certification-archive {
+    margin-top: 32px;
+    padding: 34px;
+    background: #0e0e10;
+    border: 1px solid #18181c;
+    border-radius: 12px;
+}
+
+.certification-archive h3 {
+    margin: 0 0 14px;
+    color: #e8e8ed;
+    font-size: 25px;
+    font-weight: 750;
+}
+
+.certification-archive > p {
+    max-width: 850px;
+    margin: 0 0 22px;
+    color: #aaaab4;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.certification-archive-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.certification-archive-list a,
+.certification-archive-list span {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 14px;
+    border: 1px solid #28282e;
+    border-radius: 8px;
+    color: #d0d0da;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.certification-archive-list a {
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.certification-archive-list a:hover {
+    background: #1b1b20;
+}
+
+/* Responsive layout */
+
+@media (max-width: 900px) {
+    .certification-grid {
+        gap: 16px;
+    }
+
+    .certification-item {
+        gap: 16px;
+        padding: 22px;
+    }
+
+    .certification-icon {
+        flex-basis: 58px;
+        width: 58px;
+        height: 58px;
+    }
+
+    .certification-copy strong {
+        font-size: 16px;
+    }
+
+    .certification-copy small {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 640px) {
+    .certification-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .certification-item {
+        min-height: 105px;
+        padding: 20px;
+        gap: 14px;
+    }
+
+    .certification-icon {
+        flex-basis: 52px;
+        width: 52px;
+        height: 52px;
+        border-radius: 13px;
+        font-size: 21px;
+    }
+
+    .certification-copy strong {
+        font-size: 15px;
+    }
+
+    .certification-copy small {
+        font-size: 12px;
+    }
+
+    .certification-arrow {
+        font-size: 24px;
+    }
+
+    .certification-archive {
+        padding: 24px 20px;
+    }
+
+    .certification-archive h3 {
+        font-size: 22px;
+    }
 }
 
 /* =========================
