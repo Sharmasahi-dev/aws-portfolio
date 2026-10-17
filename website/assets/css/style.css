@@ -1265,30 +1265,194 @@ footer {
     text-decoration: underline;
     text-underline-offset: 4px;
 }
-
-
-/* =========================================
-   PROJECT LINKS AND INTRO TEXT
-========================================= */
-
-.project-links {
+/* =====================================
+   FEATURED PROJECTS
+===================================== */
+.featured-projects-section {
+    padding: 80px 0;
+    background: #030303;
+    color: #f8f8fb;
+}
+.featured-projects-section .section-title {
+    margin-bottom: 45px;
+}
+.featured-projects-section .section-title h2 {
+    color: #c8c9d8;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+.featured-project-card {
+    position: relative;
+    margin-bottom: 35px;
+    padding: 45px;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            circle at 10% 15%,
+            rgba(135, 65, 30, 0.12),
+            transparent 25%
+        ),
+        #0e0e10;
+    border: 1px solid #242428;
+    border-radius: 24px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+    transition: border-color 0.3s ease,
+                transform 0.3s ease;
+}
+.featured-project-card:hover {
+    border-color: #414149;
+    transform: translateY(-3px);
+}
+.featured-project-top {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 45px;
+}
+.featured-project-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    padding: 18px;
+    background: #1d1d20;
+    border: 1px solid #343438;
+    border-radius: 14px;
+}
+.featured-project-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.project-slider-controls {
+    display: flex;
+    align-items: center;
     gap: 12px;
-    margin-top: 18px;
+}
+.project-counter {
+    color: #b9b9c2;
+    font-size: 15px;
+}
+.featured-project-info h3 {
+    margin: 0 0 22px;
+    color: #fff;
+    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+    line-height: 1.3;
+    font-weight: 800;
+}
+.featured-project-info p {
+    margin: 0 0 20px;
+    color: #b8b8c1;
+    font-size: clamp(1rem, 1.5vw, 1.35rem);
+    line-height: 1.7;
+}
+.featured-project-info .project-domain {
+    margin-top: 25px;
+    color: #d0d0d8;
+    font-size: 1rem;
+    overflow-wrap: anywhere;
+}
+.featured-project-footer {
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+}
+.project-tech-stack {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+.project-tech-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    padding: 10px;
+    border-radius: 10px;
+    background: #222225;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    transition: transform 0.25s ease,
+                background 0.25s ease;
+}
+.project-tech-icon:hover {
+    transform: translateY(-4px);
+    background: #303035;
+}
+.project-tech-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
-.project-links a {
-    color: inherit;
-    text-decoration: underline;
-    text-underline-offset: 4px;
+.project-slide-indicators {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 35px;
 }
 
-.section-intro {
-    max-width: 850px;
-    margin: 0 0 28px;
+.project-slide-indicators span {
+    width: 15px;
+    height: 15px;
+    display: block;
+    border-radius: 20px;
+    background: #414146;
+}
+.project-slide-indicators span.active {
+    width: 42px;
+    background: #fff;
+}
+/* Mobile responsive layout */
+@media (max-width: 768px) {
+    .featured-projects-section {
+        padding: 55px 0;
+    }
+    .featured-project-card {
+        padding: 25px;
+        border-radius: 18px;
+    }
+
+    .featured-project-top {
+        align-items: flex-start;
+        flex-direction: column;
+        margin-bottom: 30px;
+    }
+    .featured-project-logo {
+        width: 70px;
+        height: 70px;
+    }
+    .featured-project-info h3 {
+        font-size: 1.5rem;
+    }
+
+    .featured-project-info p {
+        font-size: 1rem;
+    }
+
+    .project-tech-stack {
+        gap: 10px;
+    }
+
+    .project-tech-icon {
+        width: 48px;
+        height: 48px;
+        padding: 8px;
+    }
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .featured-project-card,
+    .project-tech-icon {
+        transition: none;
+    }
+}
 
 /* =========================================
    RESPONSIVE DESIGN
