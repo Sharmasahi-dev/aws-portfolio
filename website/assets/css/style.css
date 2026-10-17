@@ -1568,59 +1568,69 @@ html[lang="ja"] .hero-projects-btn {
         animation: none;
     }
 }
-/* Hero section */
-.hero {
+/* Hero container */
+.landing-hero {
     position: relative;
-    overflow: hidden;
     isolation: isolate;
-    background: #080b12;
+    overflow: hidden;
 }
 
-/* Floating technology layer */
-.floating-tech {
+/* Background overlay */
+.hero-overlay {
     position: absolute;
     inset: 0;
-    overflow: hidden;
-    pointer-events: none;
     z-index: -1;
 }
 
-.tech-icon {
+/* Floating icons above background */
+.floating-tech {
     position: absolute;
-    width: 70px;
-    height: 70px;
-    object-fit: contain;
-    opacity: 0.8;
-    filter: drop-shadow(0 0 15px rgba(80, 140, 255, 0.15));
-    animation: floatTech 7s ease-in-out infinite;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
 }
 
-/* Icon positions */
-.tech-aws {
+/* Hero text above icons */
+.landing-hero .hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Floating technology icons */
+.landing-hero .tech-icon {
+    position: absolute;
+    display: block;
+    width: 75px;
+    height: 75px;
+    object-fit: contain;
+    opacity: 0.95;
+    animation: floatTech 6s ease-in-out infinite;
+}
+
+.landing-hero .tech-aws {
     top: 20%;
     left: 10%;
-    animation-delay: 0s;
 }
 
-.tech-docker {
+.landing-hero .tech-docker {
     top: 25%;
     right: 12%;
     animation-delay: -2s;
 }
 
-.tech-terraform {
+.landing-hero .tech-terraform {
     bottom: 18%;
     left: 20%;
     animation-delay: -4s;
 }
 
-.tech-kubernetes {
+.landing-hero .tech-kubernetes {
     bottom: 20%;
     right: 20%;
     animation-delay: -1s;
 }
 
-/* Gentle floating movement */
 @keyframes floatTech {
     0%, 100% {
         transform: translateY(0) rotate(-5deg);
@@ -1631,45 +1641,16 @@ html[lang="ja"] .hero-projects-btn {
     }
 }
 
-/* Keep hero content above the icons */
-.hero-content {
-    position: relative;
-    z-index: 1;
-}
-
-/* Mobile adjustments */
 @media (max-width: 768px) {
-    .tech-icon {
-        width: 42px;
-        height: 42px;
-        opacity: 0.5;
-    }
-
-    .tech-aws {
-        left: 5%;
-        top: 15%;
-    }
-
-    .tech-docker {
-        right: 5%;
-        top: 20%;
-    }
-
-    .tech-terraform {
-        left: 8%;
-        bottom: 12%;
-    }
-
-    .tech-kubernetes {
-        right: 8%;
-        bottom: 12%;
+    .landing-hero .tech-icon {
+        width: 45px;
+        height: 45px;
+        opacity: 0.8;
     }
 }
 
-/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
-    .tech-icon {
+    .landing-hero .tech-icon {
         animation: none;
     }
 }
-
