@@ -1358,3 +1358,214 @@ footer {
         margin-bottom: 10px;
     }
 }
+
+/* ========================================
+   MODERN HERO CALL-TO-ACTION BUTTONS
+   Supports the updated hero HTML:
+   .hero-actions, .hero-contact-btn, .hero-projects-btn
+======================================== */
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 36px;
+}
+
+.hero-contact-btn {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    min-height: 68px;
+    padding: 0 25px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 18px;
+    color: #fff;
+    background: linear-gradient(135deg,
+        rgba(255, 255, 255, 0.13),
+        rgba(255, 255, 255, 0.035));
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, border-color 0.3s ease,
+        box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.hero-contact-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0;
+    background: linear-gradient(110deg,
+        rgba(0, 255, 170, 0.14),
+        rgba(80, 130, 255, 0.12),
+        rgba(255, 255, 255, 0.04));
+    transition: opacity 0.3s ease;
+}
+
+.hero-contact-btn:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 255, 170, 0.55);
+    box-shadow:
+        0 15px 45px rgba(0, 255, 170, 0.1),
+        0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.hero-contact-btn:hover::before {
+    opacity: 1;
+}
+
+.hero-contact-btn:focus-visible,
+.hero-projects-btn:focus-visible {
+    outline: 2px solid #00efa5;
+    outline-offset: 4px;
+}
+
+.availability-indicator {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 12px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #00efa5;
+    box-shadow: 0 0 15px rgba(0, 239, 165, 0.5);
+}
+
+.availability-pulse {
+    position: absolute;
+    inset: -5px;
+    border: 1px solid rgba(0, 239, 165, 0.65);
+    border-radius: 50%;
+    animation: hero-pulse 2s ease-out infinite;
+    pointer-events: none;
+}
+
+.hero-contact-text {
+    white-space: normal;
+}
+
+.hero-contact-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 30px;
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    font-size: 20px;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.hero-contact-btn:hover .hero-contact-arrow {
+    transform: translate(3px, -3px);
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.hero-projects-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 58px;
+    padding: 0 22px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 16px;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background 0.25s ease, border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.hero-projects-btn:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-2px);
+}
+
+.hero-projects-btn span:last-child {
+    font-size: 18px;
+    transition: transform 0.25s ease;
+}
+
+.hero-projects-btn:hover span:last-child {
+    transform: translateY(3px);
+}
+
+@keyframes hero-pulse {
+    0% {
+        transform: scale(0.75);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(1.65);
+        opacity: 0;
+    }
+}
+
+/* Japanese text can be longer, so let the CTA wrap gracefully. */
+html[lang="ja"] .hero-contact-btn,
+html[lang="ja"] .hero-projects-btn {
+    letter-spacing: 0;
+    line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+    .hero-actions {
+        gap: 12px;
+        margin-top: 28px;
+    }
+
+    .hero-contact-btn {
+        min-height: 60px;
+        padding: 0 18px;
+        gap: 11px;
+        font-size: 14px;
+        border-radius: 15px;
+    }
+
+    .hero-contact-arrow {
+        flex-basis: 27px;
+        width: 27px;
+        height: 27px;
+    }
+
+    .hero-projects-btn {
+        min-height: 54px;
+        padding: 0 17px;
+        font-size: 14px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-contact-btn,
+    .hero-projects-btn,
+    .hero-contact-arrow,
+    .hero-projects-btn span:last-child {
+        transition: none;
+    }
+
+    .availability-pulse {
+        animation: none;
+    }
+}
+
